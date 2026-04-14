@@ -1,0 +1,249 @@
+[gd_scene load_steps=24 format=3 uid="uid://bvnoc33fddqkg"]
+
+[ext_resource type="Material" uid="uid://ft58cpw2uxdl" path="res://Deadcells/scenes/beheaded/energy_orb_dark.tres" id="1_8clox"]
+[ext_resource type="Script" uid="uid://bcgu20p40w8xd" path="res://Scripts/nodes/BeheadedNEnergyCounter.cs" id="1_nbmc3"]
+[ext_resource type="Texture2D" uid="uid://x1ux7yj6pymg" path="res://Deadcells/images/ui/combat/energy_counters/layer1.png" id="2_mytva"]
+[ext_resource type="Material" uid="uid://dv45yijtgfwhd" path="res://Deadcells/scenes/beheaded/canvas_item_material_additive_shared.tres" id="2_sjyik"]
+[ext_resource type="Script" uid="uid://xgipmgyh3tam" path="res://Scripts/nodes/BeheadedNParticlesContainer.cs" id="3_0u1ew"]
+[ext_resource type="Texture2D" uid="uid://bgji7cibc84rk" path="res://Deadcells/images/ui/combat/energy_counters/layer2.png" id="3_c47x3"]
+[ext_resource type="Texture2D" uid="uid://pj0yequ8u2mw" path="res://Deadcells/images/ui/combat/energy_counters/layer3.png" id="4_nbmc3"]
+[ext_resource type="Texture2D" uid="uid://bcc4051oklgcb" path="res://Deadcells/images/ui/combat/energy_counters/energy_orb_shine.png" id="4_wnfe7"]
+[ext_resource type="PackedScene" uid="uid://bti27h61cnba3" path="res://Deadcells/scenes/beheaded/energy_vfx_back.tscn" id="5_cb0xl"]
+[ext_resource type="Texture2D" uid="uid://bh8mak3x4ae1g" path="res://Deadcells/images/ui/combat/energy_counters/layer4.png" id="5_m22ei"]
+[ext_resource type="Texture2D" uid="uid://dhln64ah3ft3s" path="res://Deadcells/images/ui/combat/energy_counters/layer5.png" id="6_sjyik"]
+[ext_resource type="FontFile" uid="uid://bcb2mhx6i7ade" path="res://Deadcells/fonts/kreon_bold.ttf" id="7_0u1ew"]
+[ext_resource type="Texture2D" uid="uid://5pdorvq1yv63" path="res://Deadcells/images/ui/combat/energy_counters/vfx.png" id="8_m22ei"]
+[ext_resource type="Script" uid="uid://c4jao7yunagp5" path="res://Scripts/nodes/BeheadedMegaLabel.cs" id="8_wnfe7"]
+[ext_resource type="Texture2D" uid="uid://3tq7tvwb1onw" path="res://Deadcells/images/ui/combat/energy_counters/layer6.png" id="9_sjyik"]
+[ext_resource type="Texture2D" uid="uid://bic6ohv14163f" path="res://Deadcells/images/ui/combat/energy_counters/energy_orb_burst.png" id="13_8nurk"]
+[ext_resource type="PackedScene" uid="uid://bn2yqd8iu81oo" path="res://Deadcells/scenes/beheaded/energy_vfx_front.tscn" id="15_kcmm8"]
+
+[sub_resource type="Curve" id="Curve_cb0xl"]
+_data = [Vector2(0, 0), 0.0, 3.79197, 0, 0, Vector2(0.37549406, 0.7384183), 1.1935672, 1.1935672, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_kcmm8"]
+offsets = PackedFloat32Array(0.0042735045, 0.32264957, 0.67094016, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r4af7"]
+resource_local_to_scene = true
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_r4af7"]
+_data = [Vector2(0, 0), 0.0, 2.4792304, 0, 0, Vector2(0.5849802, 0.9026672), 0.58846956, 0.58846956, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_ywtl3"]
+offsets = PackedFloat32Array(0, 0.31837606, 0.6965812, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ywtl3"]
+resource_local_to_scene = true
+blend_mode = 1
+
+[node name="BeheadedEnergyCounter" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 128.0
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+script = ExtResource("1_nbmc3")
+metadata/_edit_lock_ = true
+
+[node name="BurstBack" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+material = ExtResource("2_sjyik")
+position = Vector2(65, 62)
+emitting = false
+amount = 1
+texture = ExtResource("4_wnfe7")
+one_shot = true
+local_coords = true
+gravity = Vector2(0, 0)
+angular_velocity_min = 30.0
+angular_velocity_max = 30.0
+radial_accel_max = 10.0
+angle_max = 260.0
+scale_amount_min = 0.45
+scale_amount_max = 0.45
+scale_amount_curve = SubResource("Curve_cb0xl")
+color = Color(0, 1, 1, 0.67058825)
+color_ramp = SubResource("Gradient_kcmm8")
+script = ExtResource("3_0u1ew")
+
+[node name="EnergyVfxBack" parent="." instance=ExtResource("5_cb0xl")]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_r4af7")
+position = Vector2(65, 62)
+
+[node name="Layers" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+
+[node name="Layer1" type="TextureRect" parent="Layers"]
+material = ExtResource("1_8clox")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("2_mytva")
+stretch_mode = 5
+
+[node name="RotationLayers" type="Control" parent="Layers"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+
+[node name="Layer2" type="TextureRect" parent="Layers/RotationLayers"]
+material = ExtResource("1_8clox")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("3_c47x3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Layer3" type="TextureRect" parent="Layers/RotationLayers"]
+material = ExtResource("1_8clox")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("4_nbmc3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Layer4" type="TextureRect" parent="Layers/RotationLayers"]
+material = ExtResource("1_8clox")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("5_m22ei")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Layer5" type="TextureRect" parent="Layers/RotationLayers"]
+material = ExtResource("1_8clox")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("6_sjyik")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Layer6" type="TextureRect" parent="Layers/RotationLayers"]
+material = ExtResource("1_8clox")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("8_m22ei")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Layer7" type="TextureRect" parent="Layers"]
+material = ExtResource("1_8clox")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("9_sjyik")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BurstFront" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+material = ExtResource("2_sjyik")
+position = Vector2(65, 62)
+emitting = false
+amount = 1
+texture = ExtResource("13_8nurk")
+lifetime = 1.2
+one_shot = true
+local_coords = true
+gravity = Vector2(0, 0)
+angular_velocity_min = 30.0
+angular_velocity_max = 30.0
+radial_accel_max = 10.0
+angle_max = 260.0
+scale_amount_min = 0.45
+scale_amount_max = 0.45
+scale_amount_curve = SubResource("Curve_r4af7")
+color = Color(0, 1, 1, 0.8352941)
+color_ramp = SubResource("Gradient_ywtl3")
+script = ExtResource("3_0u1ew")
+
+[node name="EnergyVfxFront" parent="." instance=ExtResource("15_kcmm8")]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_ywtl3")
+position = Vector2(65, 62)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -29.0
+offset_right = -16.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0.4, 1, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/font = ExtResource("7_0u1ew")
+theme_override_font_sizes/font_size = 36
+text = "3/3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_wnfe7")
+theme_override_font_sizes/font_size = 36
+theme_override_constants/outline_size = 16

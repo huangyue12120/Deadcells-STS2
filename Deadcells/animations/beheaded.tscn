@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://b603dlnv0j2rg"]
+
+[ext_resource type="Script" uid="uid://cltkrwrasmngo" path="res://Scripts/nodes/BeheadedNCreatureVisuals.cs" id="1_qesb0"]
+[ext_resource type="SpineSkeletonDataResource" uid="uid://cylbvaaef4di8" path="res://Deadcells/animations/beheaded.tres" id="2_gskbo"]
+
+[node name="Beheaded" type="Node2D"]
+script = ExtResource("1_qesb0")
+
+[node name="Visuals" type="SpineSprite" parent="."]
+skeleton_data_res = ExtResource("2_gskbo")
+preview_skin = "Default"
+preview_animation = "-- Empty --"
+preview_frame = false
+preview_time = 0.0
+unique_name_in_owner = true
+scale = Vector2(0.3, 0.3)
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -107.0
+offset_top = -274.0
+offset_right = 105.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -276)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -170)

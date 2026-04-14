@@ -1,0 +1,181 @@
+
+beheaded.png
+size: 1843,427
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+head
+  rotate: true
+  xy: 695, 123
+  size: 302, 267
+  orig: 302, 267
+  offset: 0, 0
+  index: -1
+hongbu
+  rotate: false
+  xy: 2, 4
+  size: 143, 421
+  orig: 150, 421
+  offset: 7, 0
+  index: -1
+jianjia
+  rotate: false
+  xy: 1109, 7
+  size: 143, 125
+  orig: 143, 125
+  offset: 0, 0
+  index: -1
+kua
+  rotate: false
+  xy: 1515, 218
+  size: 192, 207
+  orig: 217, 218
+  offset: 0, 11
+  index: -1
+left_big
+  rotate: true
+  xy: 1709, 340
+  size: 85, 90
+  orig: 85, 91
+  offset: 0, 1
+  index: -1
+left_hand
+  rotate: true
+  xy: 409, 7
+  size: 69, 92
+  orig: 69, 120
+  offset: 0, 28
+  index: -1
+left_leg_big
+  rotate: false
+  xy: 1179, 177
+  size: 188, 248
+  orig: 188, 248
+  offset: 0, 0
+  index: -1
+left_leg_foot
+  rotate: false
+  xy: 1696, 129
+  size: 145, 87
+  orig: 145, 87
+  offset: 0, 0
+  index: -1
+left_leg_small
+  rotate: false
+  xy: 1369, 188
+  size: 144, 237
+  orig: 144, 237
+  offset: 0, 0
+  index: -1
+left_small
+  rotate: false
+  xy: 1709, 279
+  size: 57, 59
+  orig: 57, 59
+  offset: 0, 0
+  index: -1
+light_1
+  rotate: false
+  xy: 1709, 223
+  size: 53, 54
+  orig: 63, 65
+  offset: 5, 6
+  index: -1
+light_2
+  rotate: false
+  xy: 1469, 2
+  size: 81, 184
+  orig: 90, 208
+  offset: 4, 12
+  index: -1
+light_3
+  rotate: false
+  xy: 1696, 3
+  size: 138, 60
+  orig: 179, 79
+  offset: 11, 14
+  index: -1
+right_big
+  rotate: false
+  xy: 1552, 26
+  size: 142, 190
+  orig: 142, 190
+  offset: 0, 0
+  index: -1
+right_foot
+  rotate: true
+  xy: 850, 17
+  size: 104, 83
+  orig: 104, 83
+  offset: 0, 0
+  index: -1
+right_hand
+  rotate: false
+  xy: 147, 2
+  size: 58, 74
+  orig: 58, 74
+  offset: 0, 0
+  index: -1
+right_leg_big
+  rotate: false
+  xy: 444, 102
+  size: 249, 323
+  orig: 250, 323
+  offset: 1, 0
+  index: -1
+right_leg_small
+  rotate: false
+  xy: 964, 134
+  size: 213, 291
+  orig: 214, 291
+  offset: 0, 0
+  index: -1
+right_small
+  rotate: true
+  xy: 1696, 65
+  size: 62, 144
+  orig: 113, 144
+  offset: 0, 0
+  index: -1
+weiijn
+  rotate: false
+  xy: 503, 6
+  size: 195, 94
+  orig: 195, 94
+  offset: 0, 0
+  index: -1
+weijing_behind
+  rotate: false
+  xy: 147, 78
+  size: 295, 347
+  orig: 295, 348
+  offset: 0, 1
+  index: -1
+xiongjia
+  rotate: false
+  xy: 1254, 7
+  size: 213, 168
+  orig: 213, 169
+  offset: 0, 0
+  index: -1
+yao_hongbu
+  rotate: false
+  xy: 700, 17
+  size: 148, 104
+  orig: 148, 104
+  offset: 0, 0
+  index: -1
+yao_hou
+  rotate: false
+  xy: 935, 20
+  size: 172, 101
+  orig: 172, 101
+  offset: 0, 0
+  index: -1
+yaobu_qian
+  rotate: false
+  xy: 207, 3
+  size: 200, 73
+  orig: 201, 76
+  offset: 1, 0
+  index: -1

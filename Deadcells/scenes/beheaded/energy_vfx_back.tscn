@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bti27h61cnba3"]
+
+[ext_resource type="Material" uid="uid://dv45yijtgfwhd" path="res://Deadcells/scenes/beheaded/canvas_item_material_additive_shared.tres" id="1_yhjoa"]
+[ext_resource type="Script" uid="uid://xgipmgyh3tam" path="res://Scripts/nodes/BeheadedNParticlesContainer.cs" id="2_5qlr5"]
+[ext_resource type="Texture2D" uid="uid://bcc4051oklgcb" path="res://Deadcells/images/ui/combat/energy_counters/energy_orb_shine.png" id="3_5qlr5"]
+
+[sub_resource type="Curve" id="Curve_ejbd1"]
+_data = [Vector2(0, 0), 0.0, 3.79197, 0, 0, Vector2(0.37549406, 0.7384183), 1.1935672, 1.1935672, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_5o03u"]
+offsets = PackedFloat32Array(0.0042735045, 0.32264957, 0.67094016, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="EnergyVfxBack" type="Node2D"]
+material = ExtResource("1_yhjoa")
+script = ExtResource("2_5qlr5")
+
+[node name="BurstBack" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+material = ExtResource("1_yhjoa")
+emitting = false
+amount = 1
+texture = ExtResource("3_5qlr5")
+one_shot = true
+local_coords = true
+gravity = Vector2(0, 0)
+angular_velocity_min = 30.0
+angular_velocity_max = 30.0
+radial_accel_max = 10.0
+angle_max = 260.0
+scale_amount_min = 0.45
+scale_amount_max = 0.45
+scale_amount_curve = SubResource("Curve_ejbd1")
+color = Color(0, 1, 1, 0.67058825)
+color_ramp = SubResource("Gradient_5o03u")
+script = ExtResource("2_5qlr5")

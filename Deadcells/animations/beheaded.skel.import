@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://dgbg7ovya1r3a"
+path="res://.godot/imported/beheaded.skel-fd884259894c4d5bfa47f7bdc55ae27a.spskel"
+
+[deps]
+
+source_file="res://Deadcells/animations/beheaded.skel"
+dest_files=["res://.godot/imported/beheaded.skel-fd884259894c4d5bfa47f7bdc55ae27a.spskel"]
+
+[params]
+

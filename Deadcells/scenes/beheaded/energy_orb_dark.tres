@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ft58cpw2uxdl"]
+
+[ext_resource type="Shader" uid="uid://crtn2waap1od3" path="res://Deadcells/scenes/beheaded/hsv.gdshader" id="1_qjjuv"]
+
+[resource]
+shader = ExtResource("1_qjjuv")
+shader_parameter/h = 1.0
+shader_parameter/s = 1.0000000475
+shader_parameter/v = 1.0

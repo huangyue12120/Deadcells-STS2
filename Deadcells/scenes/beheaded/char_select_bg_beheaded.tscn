@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmdpwrnw73hfb"]
+
+[ext_resource type="Texture2D" uid="uid://cat4tew7wbflv" path="res://Deadcells/images/character/beheaded_potrait.png" id="1_0a3an"]
+
+[node name="BeheadedBg" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -384.0
+offset_top = -197.0
+offset_right = 2176.0
+offset_bottom = 1003.0
+pivot_offset = Vector2(1280, 600)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 853.0
+offset_top = 322.0
+offset_right = 2596.0
+offset_bottom = 1304.0
+pivot_offset = Vector2(1280, 600)
+mouse_filter = 2
+texture = ExtResource("1_0a3an")
+expand_mode = 1
+stretch_mode = 6

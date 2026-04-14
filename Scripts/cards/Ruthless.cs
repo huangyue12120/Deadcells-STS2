@@ -1,0 +1,47 @@
+using BaseLib.Utils;
+using Deadcells.Scripts.character;
+using Deadcells.Scripts.powers;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+
+namespace Deadcells.Scripts.cards;
+
+//无情
+//当你给予敌人2次负面状态时抽 !M! 张牌.
+[Pool(typeof(DeadcellsCardPool))]
+public sealed class Ruthless() : DeadcellsCardModel(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+{
+    protected override bool Gold => true;
+    protected override HashSet<CardTag> CanonicalTags => [];
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => new CardKeyword[]
+    {
+
+    };
+
+    protected override HashSet<DeadcellsCardTag> DeadcellsCardTags => [];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+    {
+        HoverTipFactory.FromPower<RuthlessPower>()
+    };
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
+    {
+        new PowerVar<RuthlessPower>(1)
+    };
+
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        await PowerCmd.Apply<RuthlessPower>(base.Owner.Creature, base.DynamicVars["RuthlessPower"].BaseValue, base.Owner.Creature, this);
+    }
+
+    protected override void OnUpgrade()
+    {
+        base.EnergyCost.UpgradeBy(-1);
+    }
+
+}

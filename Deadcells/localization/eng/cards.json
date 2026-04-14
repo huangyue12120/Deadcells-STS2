@@ -1,0 +1,19 @@
+{
+  "DEADCELLS-ALCHEMY_CARBINE.title": "炼金卡宾枪",
+  "DEADCELLS-ALCHEMY_CARBINE.description": "随机给予敌人{PoisonPower:diff()}层[gold]中毒[/gold]{Repeat:diff()}次。\n抽{Cards:diff()}张牌。",
+  "DEADCELLS-A_PLAN.title": "A计划",
+  "DEADCELLS-A_PLAN.description": "丢弃掉手中的所有[gold]技能[/gold]牌,然后抽取等量的[gold]攻击[/gold]牌。\n获得{Energy:energyIcons()}。",
+  "DEADCELLS-ATTACK_DEFEND.title": "攻防一体",
+  "DEADCELLS-ATTACK_DEFEND.description": "每当你交替使用[gold]技能[/gold]牌和[gold]攻击[/gold]牌各一张时，将{AttackDefendPower:diff()}张[gold]飞刀[/gold]置入你的[gold]手牌[/gold]。",
+  "DEADCELLS-BACKTRACK.title": "返回",
+  "DEADCELLS-BACKTRACK.description": "将你的手牌洗入[gold]抽牌堆[/gold]，然后从你的[gold]弃牌堆[/gold]中抽取等量卡牌。",
+  "DEADCELLS-BALANCED_BLADE.title": "均衡之刃",
+  "DEADCELLS-BALANCED_BLADE.description": "造成{Damage:diff()}点伤害。\n在本场战斗中每打出一次，这张牌的伤害增加{ExtraDamage:diff()}，且伤害增加量增加{Increase:diff()}点。{InCombat:\n（共造成{TotalDamage:diff()}点伤害）|}",
+  "DEADCELLS-BEGINNER_BOW.title": "初学者的弓箭",
+  "DEADCELLS-BEGINNER_BOW.description": "造成{Damage:diff()}点伤害。\n为一张[gold]手牌[/gold]添加[gold]保留[/gold]。",
+  "DEADCELLS-BEGINNER_BOW.selectionScreenPrompt": "选择一张牌添加[gold]保留[/gold]。",
+  "DEADCELLS-BLEEDING_SPREAD.title": "血花四溅",
+  "DEADCELLS-BLEEDING_SPREAD.description": "[gold]流血[/gold]会扩散给其他敌人。\n当你对敌人施加[gold]流血[/gold]时，额外施加{BleedingSpreadPower:diff()}层。",
+  "DEADCELLS-CLUSTER_GRENADE.title": "集束手雷",
+  "DEADCELLS-CLUSTER_GRENADE.description": "造成{Damage:diff()}点伤害。\n随机对敌人造成{ExtraDamage:diff()}点固定伤害{Repeat:diff()}次。"
+}

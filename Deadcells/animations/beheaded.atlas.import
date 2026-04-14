@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://dh2bbk4vidass"
+path="res://.godot/imported/beheaded.atlas-b3b48ec72f9115dd89262936e0d38e0f.spatlas"
+
+[deps]
+
+source_file="res://Deadcells/animations/beheaded.atlas"
+dest_files=["res://.godot/imported/beheaded.atlas-b3b48ec72f9115dd89262936e0d38e0f.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

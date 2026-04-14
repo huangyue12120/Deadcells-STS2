@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://ctb4fbkd41o16"]
+
+[ext_resource type="Script" uid="uid://s3g8ewqlr3fy" path="res://Scripts/nodes/BeheadedNCardTrailVfx.cs" id="1_2h7wj"]
+[ext_resource type="Material" uid="uid://dv45yijtgfwhd" path="res://Deadcells/scenes/beheaded/canvas_item_material_additive_shared.tres" id="2_uncdg"]
+[ext_resource type="Script" uid="uid://vsk4prv0uewc" path="res://Scripts/nodes/BeheadedNCardTrail.cs" id="2_whihk"]
+[ext_resource type="Texture2D" uid="uid://cwnxth60uxdiq" path="res://Deadcells/images/vfx/brush_particle_2.png" id="3_whihk"]
+[ext_resource type="Texture2D" uid="uid://c1jdfykqyay02" path="res://Deadcells/images/vfx/sparkle.png" id="4_v04ts"]
+[ext_resource type="Texture2D" uid="uid://c4w13i2lk46dh" path="res://Deadcells/images/vfx/small_card_silhouette.png" id="5_g2tbj"]
+
+[sub_resource type="Gradient" id="Gradient_f8oah"]
+offsets = PackedFloat32Array(0, 0.6602564, 1)
+colors = PackedColorArray(9.866804e-07, 0.5933863, 1.92523e-07, 1, 1, 0.328278, 0.486354, 0.7094017, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_sed87"]
+offsets = PackedFloat32Array(0, 0.59615386, 1)
+colors = PackedColorArray(0, 1, 0, 1, 0, 0.5529412, 1, 0.64705884, 1, 1, 1, 0)
+
+[node name="CardTrailBeheaded" type="Node2D"]
+script = ExtResource("1_2h7wj")
+
+[node name="Trails" type="Node2D" parent="."]
+
+[node name="OuterTrail" type="Line2D" parent="Trails"]
+script = ExtResource("2_whihk")
+
+[node name="InnerTrail" type="Line2D" parent="Trails"]
+script = ExtResource("2_whihk")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="BigSparks" type="CPUParticles2D" parent="Sprites"]
+material = ExtResource("2_uncdg")
+amount = 32
+texture = ExtResource("3_whihk")
+lifetime = 2.0
+randomness = 0.5
+lifetime_randomness = 1.0
+fract_delta = false
+emission_shape = 3
+emission_rect_extents = Vector2(30, 30)
+direction = Vector2(5, -5)
+gravity = Vector2(0, 0)
+initial_velocity_min = 16.0
+initial_velocity_max = 32.0
+angular_velocity_min = -32.0
+angular_velocity_max = 32.0
+damping_min = 1.0
+damping_max = 1.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.2
+scale_amount_max = 0.8
+color_ramp = SubResource("Gradient_f8oah")
+
+[node name="LittleSparks" type="CPUParticles2D" parent="Sprites"]
+material = ExtResource("2_uncdg")
+amount = 64
+texture = ExtResource("4_v04ts")
+lifetime = 0.3
+explosiveness = 0.35
+randomness = 1.0
+lifetime_randomness = 1.0
+fract_delta = false
+emission_shape = 3
+emission_rect_extents = Vector2(24, 24)
+particle_flag_align_y = true
+direction = Vector2(0, -5)
+gravity = Vector2(0, 1960)
+initial_velocity_max = 480.0
+angular_velocity_min = -50.0
+angular_velocity_max = 50.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.02
+scale_amount_max = 0.05
+color_ramp = SubResource("Gradient_sed87")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites"]
+modulate = Color(0, 0.64705884, 0.16862746, 0.77254903)
+material = ExtResource("2_uncdg")
+scale = Vector2(1.1, 1.054)
+texture = ExtResource("5_g2tbj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprites"]
+modulate = Color(0, 1, 0.3882353, 0.61960787)
+material = ExtResource("2_uncdg")
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("5_g2tbj")
