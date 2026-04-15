@@ -1,0 +1,150 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://l6tgej4hdhe1"]
+
+[sub_resource type="Shader" id="Shader_v6glc"]
+code = "shader_type canvas_item;
+render_mode blend_mix, unshaded;
+
+uniform vec4 frost_tint : source_color = vec4(0.78, 0.92, 1.00, 1.0);
+uniform vec4 ice_highlight : source_color = vec4(0.98, 0.995, 1.00, 1.0);
+
+uniform float freeze_amount : hint_range(0.0, 1.0) = 0.72;
+uniform float tint_strength : hint_range(0.0, 1.0) = 0.46;
+uniform float edge_strength : hint_range(0.0, 3.0) = 1.00;
+uniform float crystal_strength : hint_range(0.0, 1.0) = 0.62;
+
+uniform float crystal_scale : hint_range(8.0, 128.0) = 18.0;
+uniform float crystal_line_width : hint_range(0.005, 0.15) = 0.070;
+uniform float shimmer_amount : hint_range(0.0, 1.0) = 0.12;
+
+varying vec2 world_pos;
+
+void vertex() {
+    world_pos = (MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)).xy;
+}
+
+float hash21(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+vec2 hash22(vec2 p) {
+    vec2 q = vec2(
+        dot(p, vec2(127.1, 311.7)),
+        dot(p, vec2(269.5, 183.3))
+    );
+    return fract(sin(q) * 43758.5453123);
+}
+
+float edge_sample(sampler2D tex, vec2 texel_size, vec2 uv, vec2 dir, float px) {
+    float a0 = texture(tex, uv).a;
+    float a1 = texture(tex, uv + dir * texel_size * px).a;
+    return max(a0 - a1, 0.0);
+}
+
+// x=晶线, y=晶面, z=随机权重
+vec3 crystal_pattern(vec2 x, float line_width) {
+    vec2 n = floor(x);
+    vec2 f = fract(x);
+
+    float d1 = 10.0;
+    float d2 = 10.0;
+    float rnd = 0.0;
+
+    for (int j = -1; j <= 1; j++) {
+        for (int i = -1; i <= 1; i++) {
+            vec2 g = vec2(float(i), float(j));
+            vec2 o = hash22(n + g);
+            vec2 r = g + o - f;
+            float d = dot(r, r);
+
+            if (d < d1) {
+                d2 = d1;
+                d1 = d;
+                rnd = hash21(n + g);
+            } else if (d < d2) {
+                d2 = d;
+            }
+        }
+    }
+
+    float line = 1.0 - smoothstep(line_width, line_width + 0.05, d2 - d1);
+    float facet = 1.0 - smoothstep(0.08, 0.30, sqrt(d1));
+
+    return vec3(line, facet, rnd);
+}
+
+void fragment() {
+    vec4 base = texture(TEXTURE, UV);
+    COLOR = base;
+
+    if (base.a > 0.001) {
+        mat2 rot = mat2(
+            vec2(0.866, -0.500),
+            vec2(0.500,  0.866)
+        );
+
+        vec2 crystal_uv = rot * (world_pos / crystal_scale);
+        vec3 cryst = crystal_pattern(crystal_uv, crystal_line_width);
+
+        float crystal_line = cryst.x;
+        float crystal_facet = cryst.y;
+        float crystal_rand = cryst.z;
+
+        float sweep = 0.5 + 0.5 * sin(
+            TIME * 1.2 +
+            dot(world_pos, normalize(vec2(0.82, -0.57))) * 0.04
+        );
+
+        float edge = 0.0;
+        edge += edge_sample(TEXTURE, TEXTURE_PIXEL_SIZE, UV, vec2( 1.0, 0.0), 1.4);
+        edge += edge_sample(TEXTURE, TEXTURE_PIXEL_SIZE, UV, vec2(-1.0, 0.0), 1.4);
+        edge += edge_sample(TEXTURE, TEXTURE_PIXEL_SIZE, UV, vec2( 0.0, 1.0), 1.4);
+        edge += edge_sample(TEXTURE, TEXTURE_PIXEL_SIZE, UV, vec2( 0.0,-1.0), 1.4);
+        edge = clamp(edge * edge_strength, 0.0, 1.0);
+
+        float luma = dot(base.rgb, vec3(0.299, 0.587, 0.114));
+        vec3 desat = mix(base.rgb, vec3(luma), 0.20 + 0.16 * freeze_amount);
+
+        vec3 cold_base = mix(
+            desat,
+            desat * 0.70 + frost_tint.rgb * 0.30,
+            tint_strength * freeze_amount
+        );
+
+        float line_mask = crystal_line * crystal_strength * base.a * 1.8;
+
+        float facet_mask = crystal_facet * (0.35 + 0.65 * crystal_rand) * crystal_strength * base.a * 1.35;
+        facet_mask *= (0.90 + shimmer_amount * sweep);
+
+        vec3 result = cold_base;
+
+        result += ice_highlight.rgb * edge * (0.10 + 0.14 * freeze_amount);
+
+        result += ice_highlight.rgb * line_mask * (0.34 + 0.22 * sweep);
+
+        result += mix(frost_tint.rgb, ice_highlight.rgb, 0.45) * facet_mask * 0.38;
+
+        result += frost_tint.rgb * (line_mask * 0.08 + facet_mask * 0.06);
+
+        float final_mix = clamp(
+            freeze_amount * 0.34 +
+            edge * 0.18 +
+            line_mask * 0.55 +
+            facet_mask * 0.38,
+            0.0, 1.0
+        );
+
+        COLOR = vec4(mix(base.rgb, result, final_mix), base.a);
+    }
+}"
+
+[resource]
+shader = SubResource("Shader_v6glc")
+shader_parameter/frost_tint = Color(4.9093367e-05, 0.73384935, 0.9861482, 1)
+shader_parameter/ice_highlight = Color(0.98, 0.995, 1, 1)
+shader_parameter/freeze_amount = 0.6000000285
+shader_parameter/tint_strength = 0.50000002375
+shader_parameter/edge_strength = 1.0000000475
+shader_parameter/crystal_strength = 0.400000019
+shader_parameter/crystal_scale = 40.00000152
+shader_parameter/crystal_line_width = 0.03000000107574
+shader_parameter/shimmer_amount = 0.1200000057

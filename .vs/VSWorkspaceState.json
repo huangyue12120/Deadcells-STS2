@@ -3,8 +3,9 @@
     "",
     "\\Deadcells",
     "\\Deadcells\\localization",
-    "\\Scripts"
+    "\\Scripts\\cards",
+    "\\Scripts\\powers"
   ],
-  "SelectedNode": "\\Scripts\\cards",
+  "SelectedNode": "\\Scripts",
   "PreviewInSolutionExplorer": false
 }

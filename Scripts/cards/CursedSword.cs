@@ -49,9 +49,12 @@ public sealed class CursedSword() : DeadcellsCardModel(1, CardType.Attack, CardR
 
     public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
     {
-        IEnumerable<CardModel> forCombat = CardFactory.GetForCombat(base.Owner, from c in ModelDb.CardPool<CurseCardPool>().GetUnlockedCards(base.Owner.UnlockState, base.Owner.RunState.CardMultiplayerConstraint)
-                                                                                select c, 1, base.Owner.RunState.Rng.CombatCardGeneration);
-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(forCombat, PileType.Draw, addedByPlayer: true, CardPilePosition.Random));
+        if(side == CombatSide.Player && combatState.RoundNumber <= 1)
+        {
+            IEnumerable<CardModel> forCombat = CardFactory.GetForCombat(base.Owner, from c in ModelDb.CardPool<CurseCardPool>().GetUnlockedCards(base.Owner.UnlockState, base.Owner.RunState.CardMultiplayerConstraint)
+                                                                                    select c, 1, base.Owner.RunState.Rng.CombatCardGeneration);
+            CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(forCombat, PileType.Draw, addedByPlayer: true, CardPilePosition.Random));
+        }
     }
 
     protected override void OnUpgrade()

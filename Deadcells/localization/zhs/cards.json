@@ -55,7 +55,7 @@
   "DEADCELLS-FIREWORKS_TECHNICIAN.title": "燃爆大师",
   "DEADCELLS-FIREWORKS_TECHNICIAN.description": "你的[gold]手雷[/gold]伤害提高{FireworksTechnicianPower:diff()}点。",
   "DEADCELLS-FLINT.title": "燧石",
-  "DEADCELLS-FLINT.description": "造成{Damage:diff()}点伤害。\n给予敌人{BurnsPower:diff()}层[gold]燃烧[/gold]。\n[gold]蓄力[/gold]：改为给予所有敌人{BurnsPower:diff()}层[gold]燃烧[/gold]。",
+  "DEADCELLS-FLINT.description": "造成{Damage:diff()}点伤害。\n给予敌人{BurnsPower:diff()}层[gold]燃烧[/gold]。\n[gold]蓄力[/gold]：再给予所有敌人{BurnsPower:diff()}层[gold]燃烧[/gold]。",
   "DEADCELLS-FRANTIC_SWORD.title": "狂暴之刃",
   "DEADCELLS-FRANTIC_SWORD.description": "造成{Damage:diff()}点伤害。\n如果你的生命值低于或等于50%，额外造成{ExtraDamage:diff()}点伤害。",
   "DEADCELLS-FRONT_LINE_SHIELD.title": "前线盾",

@@ -1,0 +1,125 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://hiy2gns82m4t"]
+
+[sub_resource type="Shader" id="Shader_pcqpg"]
+code = "shader_type canvas_item;
+render_mode blend_mix, unshaded;
+
+uniform sampler2D noise_tex : repeat_enable, filter_linear_mipmap;
+
+uniform vec4 dark_blood  : source_color = vec4(0.15, 0.01, 0.01, 1.0);
+uniform vec4 fresh_blood : source_color = vec4(0.75, 0.06, 0.04, 1.0);
+
+uniform float bleed_amount   : hint_range(0.0, 2.0) = 1.2;
+uniform float stain_strength : hint_range(0.0, 2.0) = 1.2;
+uniform float drip_strength  : hint_range(0.0, 2.0) = 1.5;
+uniform float edge_strength  : hint_range(0.0, 5.0) = 1.8;
+uniform float gloss_strength : hint_range(0.0, 2.0) = 0.3;
+
+// 大幅度提高这些 scale 值 → 噪声块更大
+uniform float stain_scale   : hint_range(20.0, 400.0) = 180.0;   // 原先 42，现在 180
+uniform float drip_x_scale  : hint_range(10.0, 200.0) = 40.0;    // 横向条纹间距拉大
+uniform float drip_y_scale  : hint_range(80.0, 600.0) = 300.0;   // 纵向拖尾长度增加
+uniform float drip_speed    : hint_range(-5.0, 0)  = -1.2;
+
+varying vec2 world_pos;
+
+void vertex() {
+    world_pos = (MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)).xy;
+}
+
+float edge_sample(sampler2D tex, vec2 texel_size, vec2 uv, vec2 dir, float px) {
+    float a0 = texture(tex, uv).a;
+    float a1 = texture(tex, uv + dir * texel_size * px).a;
+    return max(a0 - a1, 0.0);
+}
+
+// 生成大块血污噪声值，加入低频分量
+float stain_noise_at(vec2 p, float scl) {
+    vec2 uv = p / scl;
+    // 低频：主要形状
+    float n1 = texture(noise_tex, uv * 0.4).r;          // 倍率 0.4 进一步降低频率
+    // 中频：细节但不太碎
+    float n2 = texture(noise_tex, uv * 1.2 + vec2(2.3, 5.7)).r;
+    // 混合，让斑块有内部变化但保持整体形状
+    return clamp(n1 * 0.7 + n2 * 0.3, 0.0, 1.0);
+}
+
+void fragment() {
+    vec4 base = texture(TEXTURE, UV);
+    COLOR = base;
+
+    if (base.a > 0.001) {
+        // ========== 1. 大块血污 ==========
+        float noise_val = stain_noise_at(world_pos, stain_scale);
+        // 扩大判定范围，让更多区域成为血污
+        float stain_mask = smoothstep(0.25, 0.70, noise_val) * base.a;
+        stain_mask *= stain_strength * bleed_amount;
+
+        // ========== 2. 直接生成纵向渗血条纹（不依赖上方血污） ==========
+        // 在 Y 方向上采样噪声，制造流淌感
+        float drip_noise_y = texture(noise_tex, vec2(world_pos.x / drip_x_scale, world_pos.y / drip_y_scale + TIME * 0.02 * drip_speed)).r;
+        float drip_noise_x = texture(noise_tex, vec2(world_pos.x / (drip_x_scale * 0.7) + 1.3, world_pos.y / (drip_y_scale * 0.5) - TIME * 0.01)).r;
+        
+        // 结合纵向和横向噪声形成流淌条纹
+        float drip_stripe = drip_noise_y * drip_noise_x;
+        // 通过阈值制造断续的流淌效果
+        drip_stripe = smoothstep(0.4, 0.8, drip_stripe);
+        
+        // 加入列掩码：并非所有列都流淌
+        float column = texture(noise_tex, vec2(world_pos.x / drip_x_scale, 0.0)).r;
+        column = smoothstep(0.4, 0.9, column);
+        
+        float drip_mask = drip_stripe * column * base.a;
+        drip_mask *= drip_strength * bleed_amount;
+
+        // ========== 3. 边缘聚血 ==========
+        float edge = 0.0;
+        float edge_dist = 8.0;
+        edge += edge_sample(TEXTURE, TEXTURE_PIXEL_SIZE, UV, vec2( 1.0, 0.0), edge_dist);
+        edge += edge_sample(TEXTURE, TEXTURE_PIXEL_SIZE, UV, vec2(-1.0, 0.0), edge_dist);
+        edge += edge_sample(TEXTURE, TEXTURE_PIXEL_SIZE, UV, vec2( 0.0, 1.0), edge_dist);
+        edge += edge_sample(TEXTURE, TEXTURE_PIXEL_SIZE, UV, vec2( 0.0,-1.0), edge_dist);
+        edge = clamp(edge * edge_strength, 0.0, 1.5);
+        float edge_blood = edge * stain_mask * 0.5;
+
+        // ========== 4. 血色变化 ==========
+        float wet = texture(noise_tex, world_pos / (stain_scale * 0.6) + vec2(3.0, 1.0)).r;
+        wet = clamp(0.3 + 0.7 * wet, 0.0, 1.0);
+        vec3 blood_rgb = mix(dark_blood.rgb, fresh_blood.rgb, wet);
+
+        // ========== 5. 强力混合 ==========
+        float main_blend = clamp(stain_mask + edge_blood, 0.0, 1.0);
+        // 主血污：血液色直接覆盖底图
+        vec3 result = mix(
+            base.rgb,
+            blood_rgb,
+            main_blend * 0.9
+        );
+
+        // 渗血条纹叠加：加强纵向流淌的红色
+        result = mix(
+            result,
+            blood_rgb * 1.1,
+            clamp(drip_mask * 1.4, 0.0, 1.0)
+        );
+
+        // 湿亮高光
+        result += fresh_blood.rgb * (stain_mask * 0.2 + drip_mask * 0.3) * gloss_strength;
+
+        COLOR = vec4(result, base.a);
+    }
+}"
+
+[resource]
+shader = SubResource("Shader_pcqpg")
+shader_parameter/dark_blood = Color(0.15, 0.01, 0.01, 1)
+shader_parameter/fresh_blood = Color(0.75, 0.06, 0.04, 1)
+shader_parameter/bleed_amount = 0.800000038
+shader_parameter/stain_strength = 0.90000004275
+shader_parameter/drip_strength = 1.5
+shader_parameter/edge_strength = 0.50000002375
+shader_parameter/gloss_strength = 0.400000019
+shader_parameter/stain_scale = 100.0000038
+shader_parameter/drip_x_scale = 40.0
+shader_parameter/drip_y_scale = 300.0
+shader_parameter/drip_speed = -1.2
