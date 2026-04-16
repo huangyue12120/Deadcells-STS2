@@ -67,12 +67,19 @@ public sealed class FerrymanSLantern() : DeadcellsCardModel(0, CardType.Skill, C
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (CombatState == null) return;
-        FerrymanSLanternTwo ferrymanSLantern2 = ModelDb.Card<FerrymanSLanternTwo>();
+        
+        var cardsToChoose = new List<CardModel>
+        {
+            ModelDb.Card<FerrymanSLanternTwo>(),
+            ModelDb.Card<FerrymanSLanternThree>()
+        }.Select(e => (CardModel)e.MutableClone()).ToList();
 
-        FerrymanSLanternThree ferrymanSLantern3 = ModelDb.Card<FerrymanSLanternThree>();
-        IEnumerable<CardModel> carsSelect = [ferrymanSLantern2, ferrymanSLantern3];
-        List<CardModel> cards = CardFactory.GetDistinctForCombat(base.Owner, carsSelect, 2, base.Owner.RunState.Rng.CombatCardGeneration).ToList();
-        CardModel cardModel = await CardSelectCmd.FromChooseACardScreen(choiceContext, cards, base.Owner, canSkip: false);
+        foreach (var c in cardsToChoose)
+        {
+            CombatState.AddCard(c, Owner);
+        }
+
+        CardModel cardModel = await CardSelectCmd.FromChooseACardScreen(choiceContext, cardsToChoose, base.Owner, canSkip: false);
         if (cardModel != null)
         {
             if (this.IsUpgraded)
@@ -87,7 +94,7 @@ public sealed class FerrymanSLantern() : DeadcellsCardModel(0, CardType.Skill, C
             {
                 ((FerrymanSLanternThree)cardModel).SetParent(this);
             }
-            await CardPileCmd.Add(cardModel, PileType.Hand);
+            await CardPileCmd.AddGeneratedCardToCombat(cardModel, PileType.Hand, true);
         }
     }
 

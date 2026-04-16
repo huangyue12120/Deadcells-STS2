@@ -65,12 +65,19 @@ public sealed class Toothpick() : DeadcellsCardModel(0, CardType.Skill, CardRari
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (CombatState == null) return;
-        ToothpickTwo toothpick2 = ModelDb.Card<ToothpickTwo>();
-        ToothpickThree toothpick3 = ModelDb.Card<ToothpickThree>();
-        ToothpickFour toothpick4 = ModelDb.Card<ToothpickFour>();
-        IEnumerable<CardModel> carsSelect = [toothpick2, toothpick3, toothpick4];
-        List<CardModel> cards = CardFactory.GetDistinctForCombat(base.Owner, carsSelect, 3, base.Owner.RunState.Rng.CombatCardGeneration).ToList();
-        CardModel cardModel = await CardSelectCmd.FromChooseACardScreen(choiceContext, cards, base.Owner, canSkip: false);
+        var cardsToChoose = new List<CardModel>
+            {
+                ModelDb.Card<ToothpickTwo>(),
+                ModelDb.Card<ToothpickThree>(),
+                ModelDb.Card<ToothpickFour>(),
+            }.Select(e => (CardModel)e.MutableClone()).ToList();
+
+        foreach (var c in cardsToChoose)
+        {
+            CombatState.AddCard(c, Owner);
+        }
+
+        CardModel cardModel = await CardSelectCmd.FromChooseACardScreen(choiceContext, cardsToChoose, base.Owner, canSkip: false);
         if (cardModel != null)
         {
             if (this.IsUpgraded)
@@ -89,7 +96,8 @@ public sealed class Toothpick() : DeadcellsCardModel(0, CardType.Skill, CardRari
             {
                 ((ToothpickFour)cardModel).SetParent(this);
             }
-            await CardPileCmd.Add(cardModel, PileType.Hand);
+
+            await CardPileCmd.AddGeneratedCardToCombat(cardModel, PileType.Hand, true);
         }
     }
 

@@ -61,7 +61,7 @@ public sealed class Piano() : DeadcellsCardModel(1, CardType.Attack, CardRarity.
 }
 
 [Pool(typeof(DeadcellsCardPool))]
-public sealed class PianoTwo() : DeadcellsCardModel(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy, false)
+public sealed class PianoTwo() : DeadcellsCardModel(2, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy, false)
 {
     protected override bool Green => true;
     protected override HashSet<CardTag> CanonicalTags => [];
@@ -127,7 +127,7 @@ public sealed class PianoTwo() : DeadcellsCardModel(2, CardType.Attack, CardRari
 }
 
 [Pool(typeof(DeadcellsCardPool))]
-public sealed class PianoThree() : DeadcellsCardModel(2, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies, false)
+public sealed class PianoThree() : DeadcellsCardModel(2, CardType.Attack, CardRarity.Token, TargetType.AllEnemies, false)
 {
     protected override bool Green => true;
     protected override HashSet<CardTag> CanonicalTags => [];

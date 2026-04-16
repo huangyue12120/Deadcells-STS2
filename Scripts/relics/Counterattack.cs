@@ -1,4 +1,5 @@
 using BaseLib.Abstracts;
+using BaseLib.Extensions;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -31,7 +32,7 @@ public sealed class Counterattack : CustomRelicModel
 
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target == base.Owner.Creature && dealer != base.Owner.Creature)
+        if (target == base.Owner.Creature && dealer != base.Owner.Creature && dealer != null && props.IsPoweredAttack_())
         {
             Flash();
             await PowerCmd.Apply<VigorPower>(base.Owner.Creature, base.DynamicVars["VigorPower"].BaseValue, base.Owner.Creature, null);

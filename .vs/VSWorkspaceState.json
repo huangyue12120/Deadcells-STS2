@@ -1,11 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Scripts",
-    "\\Scripts\\cards",
+    "\\Deadcells",
+    "\\Deadcells\\localization\\eng",
     "\\Scripts\\powers",
     "\\Scripts\\utils"
   ],
-  "SelectedNode": "\\Deadcells",
+  "SelectedNode": "\\Scripts",
   "PreviewInSolutionExplorer": false
 }

@@ -1,88 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\stsmod\\STS2\\deadcells\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|e:\\stsmod\\sts2\\deadcells\\scripts\\powers\\frostbitepower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|solutionrelative:scripts\\powers\\frostbitepower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|e:\\stsmod\\sts2\\deadcells\\scripts\\powers\\bleedingpower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|solutionrelative:scripts\\powers\\bleedingpower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|e:\\stsmod\\sts2\\deadcells\\scripts\\powers\\burnspower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|solutionrelative:scripts\\powers\\burnspower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|e:\\stsmod\\sts2\\deadcells\\scripts\\utils\\monstermaterialstack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|solutionrelative:scripts\\utils\\monstermaterialstack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FrostbitePower.cs",
-              "DocumentMoniker": "E:\\stsmod\\STS2\\deadcells\\Scripts\\powers\\FrostbitePower.cs",
-              "RelativeDocumentMoniker": "Scripts\\powers\\FrostbitePower.cs",
-              "ToolTip": "E:\\stsmod\\STS2\\deadcells\\Scripts\\powers\\FrostbitePower.cs",
-              "RelativeToolTip": "Scripts\\powers\\FrostbitePower.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAIwGQAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T06:12:20.221Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "BleedingPower.cs",
-              "DocumentMoniker": "E:\\stsmod\\STS2\\deadcells\\Scripts\\powers\\BleedingPower.cs",
-              "RelativeDocumentMoniker": "Scripts\\powers\\BleedingPower.cs",
-              "ToolTip": "E:\\stsmod\\STS2\\deadcells\\Scripts\\powers\\BleedingPower.cs",
-              "RelativeToolTip": "Scripts\\powers\\BleedingPower.cs",
-              "ViewState": "AgIAADsAAAAAAAAAAADwv0IAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T06:12:02.643Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BurnsPower.cs",
-              "DocumentMoniker": "E:\\stsmod\\STS2\\deadcells\\Scripts\\powers\\BurnsPower.cs",
-              "RelativeDocumentMoniker": "Scripts\\powers\\BurnsPower.cs",
-              "ToolTip": "E:\\stsmod\\STS2\\deadcells\\Scripts\\powers\\BurnsPower.cs",
-              "RelativeToolTip": "Scripts\\powers\\BurnsPower.cs",
-              "ViewState": "AgIAAKIAAAAAAAAAAAAIwJwAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T05:39:05.381Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MonsterMaterialStack.cs",
-              "DocumentMoniker": "E:\\stsmod\\STS2\\deadcells\\Scripts\\utils\\MonsterMaterialStack.cs",
-              "RelativeDocumentMoniker": "Scripts\\utils\\MonsterMaterialStack.cs",
-              "ToolTip": "E:\\stsmod\\STS2\\deadcells\\Scripts\\utils\\MonsterMaterialStack.cs",
-              "RelativeToolTip": "Scripts\\utils\\MonsterMaterialStack.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAIwFUAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-16T05:38:42.501Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

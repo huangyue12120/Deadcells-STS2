@@ -41,6 +41,7 @@ public sealed class MagneticGrenade() : DeadcellsCardModel(1, CardType.Attack, C
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
+                .WithHitCount(base.DynamicVars.Repeat.IntValue)
                 .FromCard(this)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")

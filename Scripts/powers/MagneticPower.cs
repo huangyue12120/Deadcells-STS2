@@ -1,4 +1,5 @@
 using BaseLib.Abstracts;
+using BaseLib.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -31,7 +32,7 @@ public sealed class MagneticPower : CustomPowerModel
 
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (target == this.Owner && dealer.IsPlayer && result.UnblockedDamage > 0 && cardSource != null)
+        if (target == this.Owner && dealer != null && dealer.IsPlayer && props.IsPoweredAttack_() && result.UnblockedDamage > 0 && cardSource != null)
         {
             this.Flash();
             await CreatureCmd.GainBlock(dealer, this.Amount, ValueProp.Unpowered, null);

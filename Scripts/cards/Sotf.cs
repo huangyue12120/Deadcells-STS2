@@ -48,11 +48,19 @@ public sealed class Sotf() : DeadcellsCardModel(1, CardType.Power, CardRarity.Un
         if (this.IsUpgraded)
         {
             if (CombatState == null) return;
-            TmpStrCard str = ModelDb.Card<TmpStrCard>();
-            TmpDexCard dex = ModelDb.Card<TmpDexCard>();
-            IEnumerable<CardModel> carsSelect = [str, dex];
-            List<CardModel> cards = CardFactory.GetDistinctForCombat(base.Owner, carsSelect, 2, base.Owner.RunState.Rng.CombatCardGeneration).ToList();
-            CardModel cardModel = await CardSelectCmd.FromChooseACardScreen(choiceContext, cards, base.Owner, canSkip: false);
+            var cardsToChoose = new List<CardModel>
+            {
+                ModelDb.Card<TmpStrCard>(),
+                ModelDb.Card<TmpDexCard>()
+            }.Select(e => (CardModel)e.MutableClone()).ToList();
+
+            foreach (var c in cardsToChoose)
+            {
+                c.Owner = Owner;
+            }
+
+            CardModel cardModel = await CardSelectCmd.FromChooseACardScreen(choiceContext, cardsToChoose, base.Owner, canSkip: false);
+            
             if (cardModel != null)
             {
                 if (cardModel is TmpStrCard)
@@ -75,7 +83,7 @@ public sealed class Sotf() : DeadcellsCardModel(1, CardType.Power, CardRarity.Un
 }
 
 [Pool(typeof(DeadcellsCardPool))]
-public sealed class TmpStrCard() : DeadcellsCardModel(-1, CardType.Skill, CardRarity.Status, TargetType.None, false)
+public sealed class TmpStrCard() : DeadcellsCardModel(-1, CardType.Skill, CardRarity.Token, TargetType.None, false)
 {
     protected override bool Gray => true;
     protected override HashSet<CardTag> CanonicalTags => [];
@@ -110,7 +118,7 @@ public sealed class TmpStrCard() : DeadcellsCardModel(-1, CardType.Skill, CardRa
 }
 
 [Pool(typeof(DeadcellsCardPool))]
-public sealed class TmpDexCard() : DeadcellsCardModel(-1, CardType.Skill, CardRarity.Status, TargetType.None, false)
+public sealed class TmpDexCard() : DeadcellsCardModel(-1, CardType.Skill, CardRarity.Token, TargetType.None, false)
 {
     protected override bool Gray => true;
     protected override HashSet<CardTag> CanonicalTags => [];
