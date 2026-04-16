@@ -43,6 +43,6 @@ public sealed class BloodthirstyShieldPower : CustomPowerModel
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
         this.Flash();
-        await PowerCmd.Apply<BleedingSpreadPower>(base.Owner, -this.Amount, base.Owner, null);
+        await PowerCmd.Apply<BloodthirstyShieldPower>(base.Owner, -this.Amount, base.Owner, null);
     }
 }

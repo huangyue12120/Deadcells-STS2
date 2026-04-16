@@ -106,15 +106,25 @@ public sealed class FrostbitePower : CustomPowerModel
         MonsterMaterialStack.PushMaterial(base.Owner, _burnMaterialInstance, visuals);
     }
 
+    private void CleanupResources()
+    {
+        if (_burnMaterialInstance != null)
+        {
+            if (GodotObject.IsInstanceValid(_burnMaterialInstance))
+            {
+                _burnMaterialInstance.Dispose();
+            }
+        }
+    }
+
     private void RemoveShader()
     {
-        // 获取视觉节点
         var creatureNode = NCombatRoom.Instance?.GetCreatureNode(base.Owner);
         var visuals = creatureNode?.Visuals as NCreatureVisuals;
         if (visuals?.SpineBody != null)
         {
-            // 弹出当前效果，恢复上一个材质
             MonsterMaterialStack.PopMaterial(base.Owner, _burnMaterialInstance, visuals);
+            CleanupResources();
         }
     }
 
@@ -124,7 +134,6 @@ public sealed class FrostbitePower : CustomPowerModel
         var visuals = creatureNode?.Visuals as NCreatureVisuals;
         if (visuals?.SpineBody != null)
         {
-            // 弹出当前效果，恢复上一个材质
             MonsterMaterialStack.ClearStack(base.Owner, visuals);
         }
     }

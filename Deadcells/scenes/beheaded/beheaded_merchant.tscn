@@ -9,6 +9,7 @@ script = ExtResource("1_tb5oi")
 [node name="SpineSprite" type="SpineSprite" parent="."]
 skeleton_data_res = ExtResource("2_rhkim")
 preview_skin = "Default"
-preview_animation = "-- Empty --"
+preview_animation = "relax_loop"
 preview_frame = false
 preview_time = 0.0
+scale = Vector2(0.35, 0.35)

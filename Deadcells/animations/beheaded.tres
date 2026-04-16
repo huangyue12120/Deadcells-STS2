@@ -1,7 +1,7 @@
 [gd_resource type="SpineSkeletonDataResource" load_steps=3 format=3 uid="uid://cylbvaaef4di8"]
 
-[ext_resource type="SpineAtlasResource" uid="uid://dh2bbk4vidass" path="res://Deadcells/animations/beheaded.atlas" id="1_7gkcq"]
-[ext_resource type="SpineSkeletonFileResource" uid="uid://dgbg7ovya1r3a" path="res://Deadcells/animations/beheaded.skel" id="2_6femi"]
+[ext_resource type="SpineAtlasResource" uid="uid://b135dvxiwt6lx" path="res://Deadcells/animations/beheaded.atlas" id="1_7gkcq"]
+[ext_resource type="SpineSkeletonFileResource" uid="uid://b8qqexrskstga" path="res://Deadcells/animations/beheaded.skel" id="2_6femi"]
 
 [resource]
 atlas_res = ExtResource("1_7gkcq")
