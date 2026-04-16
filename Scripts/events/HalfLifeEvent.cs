@@ -27,7 +27,7 @@ public sealed class HalfLifeEvent : CustomEventModel
     ];
 
     // 什么时候会遇到。这里的条件是所有玩家的金币都大于等于60
-    public override bool IsAllowed(RunState runState) => true;
+    public override bool IsAllowed(IRunState runState) => true;
 
     // 事件开始前的逻辑。这里是禁止玩家移除药水
     protected override Task BeforeEventStarted(bool isPreFinished)
