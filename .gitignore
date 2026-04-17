@@ -1,3 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+/.vs/Deadcells/FileContentIndex
+/.vs/Deadcells/DesignTimeBuild
+/.vs/Deadcells/FileContentIndex
+/.vs

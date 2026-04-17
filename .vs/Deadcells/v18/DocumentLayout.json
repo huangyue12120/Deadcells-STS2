@@ -1,12 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\stsmod\\STS2\\deadcells\\",
-  "Documents": [],
+  "WorkspaceRootPath": "E:\\stsmod\\Deadcells-STS2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|e:\\stsmod\\deadcells-sts2\\scripts\\character\\beheaded.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|solutionrelative:scripts\\character\\beheaded.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Beheaded.cs",
+              "DocumentMoniker": "E:\\stsmod\\Deadcells-STS2\\Scripts\\character\\Beheaded.cs",
+              "RelativeDocumentMoniker": "Scripts\\character\\Beheaded.cs",
+              "ToolTip": "E:\\stsmod\\Deadcells-STS2\\Scripts\\character\\Beheaded.cs",
+              "RelativeToolTip": "Scripts\\character\\Beheaded.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T12:13:24.021Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
