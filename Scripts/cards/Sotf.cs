@@ -83,7 +83,7 @@ public sealed class Sotf() : DeadcellsCardModel(1, CardType.Power, CardRarity.Un
 }
 
 [Pool(typeof(DeadcellsCardPool))]
-public sealed class TmpStrCard() : DeadcellsCardModel(-1, CardType.Skill, CardRarity.Token, TargetType.None, false)
+public sealed class TmpStrCard() : DeadcellsCardModel(-1, CardType.Status, CardRarity.Token, TargetType.None, false)
 {
     protected override bool Gray => true;
     protected override HashSet<CardTag> CanonicalTags => [];
@@ -118,7 +118,7 @@ public sealed class TmpStrCard() : DeadcellsCardModel(-1, CardType.Skill, CardRa
 }
 
 [Pool(typeof(DeadcellsCardPool))]
-public sealed class TmpDexCard() : DeadcellsCardModel(-1, CardType.Skill, CardRarity.Token, TargetType.None, false)
+public sealed class TmpDexCard() : DeadcellsCardModel(-1, CardType.Status, CardRarity.Token, TargetType.None, false)
 {
     protected override bool Gray => true;
     protected override HashSet<CardTag> CanonicalTags => [];

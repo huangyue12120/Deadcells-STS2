@@ -285,13 +285,13 @@
   "VAKUU.talk.DEADCELLS-BEHEADED.2-1.next": "继续",
   "VAKUU.talk.DEADCELLS-BEHEADED.2-2.ancient": "呵……真可惜。\n你居然连自己的不幸都舍不得拿来交换。",
 
-  "VAKUU.talk.DEADCELLS-BEHEADED.3-0.ancient": "那就继续往上爬吧。\nArchitect 死的时候，塔的缝线也许会松开。",
+  "VAKUU.talk.DEADCELLS-BEHEADED.3-0.ancient": "那就继续往上爬吧。\n建筑师死的时候，那道裂缝也许会松开。",
   "VAKUU.talk.DEADCELLS-BEHEADED.3-0.next": "继续",
   "VAKUU.talk.DEADCELLS-BEHEADED.3-1.char": "终于说了句有用的。",
   "VAKUU.talk.DEADCELLS-BEHEADED.3-1.next": "继续",
   "VAKUU.talk.DEADCELLS-BEHEADED.3-2.ancient": "别高兴太早。\n裂缝重新打开时，你未必喜欢那一边等着你的东西。",
 
-  "VAKUU.talk.DEADCELLS-BEHEADED.4-0.ancient": "你真以为杀了 Architect，裂缝就一定会重新张开？",
+  "VAKUU.talk.DEADCELLS-BEHEADED.4-0.ancient": "你真以为杀了建筑师，裂缝就一定会重新张开？",
   "VAKUU.talk.DEADCELLS-BEHEADED.4-0.next": "回答",
   "VAKUU.talk.DEADCELLS-BEHEADED.4-1.char": "不。\n但我向来习惯先把最碍事的那个砍掉，再看后面会发生什么。",
   "VAKUU.talk.DEADCELLS-BEHEADED.4-1.next": "继续",
@@ -315,7 +315,7 @@
   "THE_ARCHITECT.talk.DEADCELLS-BEHEADED.0-1r.next": "继续",
   "THE_ARCHITECT.talk.DEADCELLS-BEHEADED.0-2r.ancient": "我介意一切不在结构之内的东西。\n而你，尤其明显。",
 
-  "THE_ARCHITECT.talk.DEADCELLS-BEHEADED.1-0r.ancient": "那道裂缝不是我的造物。\nNeow 只是趁它未闭合，把你钉进了我的循环里。",
+  "THE_ARCHITECT.talk.DEADCELLS-BEHEADED.1-0r.ancient": "那道裂缝不是我的造物。\n涅奥只是趁它未闭合，把你钉进了我的循环里。",
   "THE_ARCHITECT.talk.DEADCELLS-BEHEADED.1-0r.next": "继续",
   "THE_ARCHITECT.talk.DEADCELLS-BEHEADED.1-1r.char": "她觉得我适合反复爬塔。",
   "THE_ARCHITECT.talk.DEADCELLS-BEHEADED.1-1r.next": "继续",

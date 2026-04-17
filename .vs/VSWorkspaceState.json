@@ -2,10 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Deadcells",
-    "\\Deadcells\\localization\\eng",
-    "\\Scripts\\powers",
-    "\\Scripts\\utils"
+    "\\Deadcells\\localization",
+    "\\Deadcells\\localization\\zhs"
   ],
-  "SelectedNode": "\\Scripts",
+  "SelectedNode": "\\Deadcells\\localization\\zhs\\ancients.json",
   "PreviewInSolutionExplorer": false
 }
