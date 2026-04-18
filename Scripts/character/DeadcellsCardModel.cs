@@ -18,7 +18,7 @@ public abstract class DeadcellsCardModel(
     : CustomCardModel(canonicalEnergyCost, type, rarity, targetType, shouldShowInCardLibrary, autoAdd)
 {
     //卡图
-    //public override string PortraitPath => $"res://images/cards/{Id.Entry.ToLowerInvariant()}.png";
+    public override string PortraitPath => $"res://Deadcells/images/cards/{Id.Entry.ToLowerInvariant()}.png";
 
     //卡背
 

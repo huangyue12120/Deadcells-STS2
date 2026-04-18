@@ -16,6 +16,12 @@ public sealed class EmeraldAmulet : CustomRelicModel
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
 
+    // 小图标
+    public override string PackedIconPath => $"res://Deadcells/images/relics/{Id.Entry.ToLowerInvariant()}.png";
+    // 轮廓图标
+    protected override string PackedIconOutlinePath => $"res://Deadcells/images/relics/{Id.Entry.ToLowerInvariant()}.png";
+    // 大图标
+    protected override string BigIconPath => $"res://Deadcells/images/relics/{Id.Entry.ToLowerInvariant()}.png";
     protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
     {
         HoverTipFactory.FromCard<Roll>()
@@ -44,6 +50,13 @@ public sealed class EmeraldAmulet : CustomRelicModel
 public sealed class EmeraldAmuletPlus : CustomRelicModel
 {
     public override RelicRarity Rarity => RelicRarity.Starter;
+
+    // 小图标
+    public override string PackedIconPath => $"res://Deadcells/images/relics/{Id.Entry.ToLowerInvariant()}.png";
+    // 轮廓图标
+    protected override string PackedIconOutlinePath => $"res://Deadcells/images/relics/{Id.Entry.ToLowerInvariant()}.png";
+    // 大图标
+    protected override string BigIconPath => $"res://Deadcells/images/relics/{Id.Entry.ToLowerInvariant()}.png";
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
     {

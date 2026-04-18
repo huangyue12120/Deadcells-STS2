@@ -21,7 +21,11 @@ public sealed class GrenadePower : CustomPowerModel
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Single;
+    public override string? CustomPackedIconPath => $"res://Deadcells/images/powers/{Id.Entry.ToLowerInvariant()}.png";
 
+    public override string? CustomBigIconPath => $"res://Deadcells/images/powers/{Id.Entry.ToLowerInvariant()}.png";
+
+    public override string? CustomBigBetaIconPath => $"res://Deadcells/images/powers/{Id.Entry.ToLowerInvariant()}.png";
     // 记录处于冷却中的卡牌及其剩余冷却回合数
     private readonly List<CooldownEntry> cooldownEntries = new List<CooldownEntry>();
 

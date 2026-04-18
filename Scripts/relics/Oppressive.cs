@@ -18,6 +18,12 @@ public sealed class Oppressive : CustomRelicModel
 {
     public override RelicRarity Rarity => RelicRarity.Uncommon;
 
+    // 小图标
+    public override string PackedIconPath => $"res://Deadcells/images/relics/{Id.Entry.ToLowerInvariant()}.png";
+    // 轮廓图标
+    protected override string PackedIconOutlinePath => $"res://Deadcells/images/relics/{Id.Entry.ToLowerInvariant()}.png";
+    // 大图标
+    protected override string BigIconPath => $"res://Deadcells/images/relics/{Id.Entry.ToLowerInvariant()}.png";
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
         new CardsVar(1),
