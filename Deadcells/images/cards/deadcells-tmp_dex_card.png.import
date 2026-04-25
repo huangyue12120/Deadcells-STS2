@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4ovr2pk7qynr"
-path="res://.godot/imported/deadcells-crow_bar.png-85c78f300427bfeb6093dd935e0a06af.ctex"
+uid="uid://dd5u5b6n2dild"
+path="res://.godot/imported/deadcells-tmp_dex_card.png-c56c1c2b06c3e017dd9a959ee235b85b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Deadcells/images/cards/deadcells-crow_bar.png"
-dest_files=["res://.godot/imported/deadcells-crow_bar.png-85c78f300427bfeb6093dd935e0a06af.ctex"]
+source_file="res://Deadcells/images/cards/deadcells-tmp_dex_card.png"
+dest_files=["res://.godot/imported/deadcells-tmp_dex_card.png-c56c1c2b06c3e017dd9a959ee235b85b.ctex"]
 
 [params]
 
