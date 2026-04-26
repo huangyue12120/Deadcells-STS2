@@ -39,7 +39,7 @@ public sealed class Rob() : DeadcellsCardModel(1, CardType.Power, CardRarity.Rar
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<DexterityPower>(base.Owner.Creature, base.DynamicVars.Dexterity.BaseValue, this.Owner.Creature, this);
-        await PowerCmd.Apply<DexterityPower>(base.Owner.Creature, base.DynamicVars["RobPower"].BaseValue, this.Owner.Creature, this);
+        await PowerCmd.Apply<RobPower>(base.Owner.Creature, base.DynamicVars["RobPower"].BaseValue, this.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
