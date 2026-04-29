@@ -43,7 +43,7 @@ public sealed class IronStaffPower : CustomPowerModel
         {
             foreach (Creature enemy in base.CombatState.HittableEnemies)
             {
-                await CreatureCmd.Damage(choiceContext, enemy, this.BlockNumber, ValueProp.Move, base.Owner, null);
+                await CreatureCmd.Damage(choiceContext, enemy, this.BlockNumber, ValueProp.Unpowered, base.Owner, null);
             }
         }
         await PowerCmd.Apply<IronStaffPower>(base.Owner, -this.Amount, base.Owner, null);

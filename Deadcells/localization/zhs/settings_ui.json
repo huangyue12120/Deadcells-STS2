@@ -1,0 +1,7 @@
+{
+  "DEADCELLS.mod_title": "死亡细胞",
+  "DEADCELLS-CARDS.title": "卡牌",
+  "DEADCELLS-MAGNIFICENT_CARD_BG.title": "使用更华丽的卡牌背景",
+  "DEADCELLS-MAGNIFICENT_CARD_BG.hover.title": "使用更华丽的卡牌背景",
+  "DEADCELLS-MAGNIFICENT_CARD_BG.hover.desc": "[gold]勾选[/gold]后，默认会根据武器在[gold]死亡细胞[/gold]原游戏中的[gold]属性定位[/gold]设定其卡牌背景。\n[gold]取消勾选[/gold]后，会使用卡牌类型判断卡牌背景颜色：\n[red]攻击[/red]牌：红色；\n[purple]技能[/purple]牌：紫色；\n[green]能力[/green]牌：绿色；\n其他为灰色。"
+}

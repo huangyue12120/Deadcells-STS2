@@ -1,0 +1,7 @@
+{
+  "DEADCELLS.mod_title": "Dead Cells",
+  "DEADCELLS-CARDS.title": "Cards",
+  "DEADCELLS-MAGNIFICENT_CARD_BG.title": "More Magnificent Card Background",
+  "DEADCELLS-MAGNIFICENT_CARD_BG.hover.title": "More Magnificent Card Background",
+  "DEADCELLS-MAGNIFICENT_CARD_BG.hover.desc": "When [gold]enabled[/gold], card backgrounds will be set according to the [gold]attribute classification[/gold] of weapons in the original [gold]Dead Cells[/gold] game by default.\nWhen [gold]disabled[/gold], background colors are determined by card type:\n[red]Attack[/red] Cards: Red;\n[purple]Skill[/purple] Cards: Purple;\n[green]Power[/green] Cards: Green;\nAll other cards: Gray."
+}

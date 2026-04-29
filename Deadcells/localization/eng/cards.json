@@ -120,7 +120,7 @@
   "DEADCELLS-FIREBRANDS.description": "Apply {BurnsPower:diff()} [gold]Burning[/gold] to a random enemy {Repeat:diff()} times.",
   "DEADCELLS-FIRE_GRENADE.description": "Apply {BurnsPower:diff()} [gold]Burning[/gold] to ALL enemies.\nDeal {Damage:diff()} damage to ALL enemies.",
   "DEADCELLS-FIREWORKS_TECHNICIAN.description": "Your [gold]Grenades[/gold] deal {FireworksTechnicianPower:diff()} additional damage.",
-  "DEADCELLS-FLINT.description": "Deal {Damage:diff()} damage.\nApply {BurnsPower:diff()} [gold]Burning[/gold].\n[gold]Charge[/gold]: Apply {BurnsPower:diff()} [gold]Burning[/gold] to ALL enemies.",
+  "DEADCELLS-FLINT.description": "Deal {Damage:diff()} damage.\nApply {BurnsPower:diff()} [gold]Burning[/gold].\n[gold]Charge[/gold]{energyPrefix:energyIcons(1)}: Apply {BurnsPower:diff()} [gold]Burning[/gold] to ALL enemies.",
   "DEADCELLS-FRANTIC_SWORD.description": "Deal {Damage:diff()} damage.\nIf your HP is 50% or less, deal {ExtraDamage:diff()} additional damage.",
   "DEADCELLS-FRONT_LINE_SHIELD.description": "Gain {Block:diff()} [gold]Block[/gold].\nAdd {Cards:diff()} [gold]Attack[/gold] cards with [gold]Ethereal[/gold] and [gold]Exhaust[/gold] into your [gold]Hand[/gold].",
   "DEADCELLS-FROST_BLAST.description": "Gain {Block:diff()} [gold]Block[/gold] X times.\nApply {FrostbitePower:diff()} [gold]Frostbite[/gold] to ALL enemies {IfUpgraded:show:X+1|X} times.",

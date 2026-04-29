@@ -1,5 +1,6 @@
 using BaseLib.Abstracts;
 using Deadcells.Scripts.powers;
+using Deadcells.Scripts.utils;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -62,7 +63,7 @@ public abstract class DeadcellsCardModel(
 
     protected virtual int GrenadeCooldownTime => 1;
 
-    private string getCardFramePath()
+    private string getCardFramePathMagnificent()
     {
         string prefixText = "res://Deadcells/images/card_bg/bg";
         string postfixText = "dc_p.png";
@@ -80,7 +81,34 @@ public abstract class DeadcellsCardModel(
         return $"{prefixText}_{colorText}_{typeText}_{postfixText}";
     }
 
-    public override Texture2D? CustomFrame => ResourceLoader.Load<Texture2D>(getCardFramePath(), null, ResourceLoader.CacheMode.Reuse);
+    private string getCardFramePathNoMagnificent()
+    {
+        string prefixText = "res://Deadcells/images/card_bg/bg";
+        string postfixText = "dc_p.png";
+        string typeText = this.Type switch
+        {
+            CardType.Attack => "attack",
+            CardType.Skill => "skill",
+            CardType.Power => "power",
+            CardType.Status => "skill",
+            _ => "skill"
+        };
+
+        string colorText = this.Type switch
+        {
+            CardType.Attack => "red",
+            CardType.Skill => "purple",
+            CardType.Power => "green",
+            CardType.Status => "gray",
+            _ => "gray"
+        };
+
+        return $"{prefixText}_{colorText}_{typeText}_{postfixText}";
+    }
+
+    private string CustomFramePath => DeadcellsModConfig.MagnificentCardBg ? getCardFramePathMagnificent() : getCardFramePathNoMagnificent();
+
+    public override Texture2D? CustomFrame => ResourceLoader.Load<Texture2D>(CustomFramePath, null, ResourceLoader.CacheMode.Reuse);
 
 
     private HashSet<DeadcellsCardTag>? _dcCardTag;

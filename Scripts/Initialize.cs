@@ -1,3 +1,6 @@
+using BaseLib.Config;
+using BaseLib.Config.UI;
+using Deadcells.Scripts.utils;
 using Godot.Bridge;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Logging;
@@ -20,5 +23,7 @@ public static class Initialize
 
         Log.Info($"{LogPrefix} - Harmony PatchAll completed", 2);
         ScriptManagerBridge.LookupScriptsInAssembly(typeof(Initialize).Assembly);
+
+        ModConfigRegistry.Register(ModId, new DeadcellsModConfig());
     }
 }

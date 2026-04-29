@@ -18,7 +18,7 @@ public sealed class MagneticPower : CustomPowerModel
 {
     public override PowerType Type => PowerType.Debuff;
 
-    public override PowerStackType StackType => PowerStackType.Single;
+    public override PowerStackType StackType => PowerStackType.Counter;
     public override string? CustomPackedIconPath => $"res://Deadcells/images/powers/{Id.Entry.ToLowerInvariant()}.png";
 
     public override string? CustomBigIconPath => $"res://Deadcells/images/powers/{Id.Entry.ToLowerInvariant()}.png";
@@ -48,7 +48,7 @@ public sealed class MagneticPower : CustomPowerModel
         if (side == CombatSide.Player)
         {
             this.Flash();
-            await PowerCmd.TickDownDuration(this);
+            await PowerCmd.Remove(this);
         }
     }
 }
