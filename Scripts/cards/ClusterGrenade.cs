@@ -40,7 +40,7 @@ public sealed class ClusterGrenade() : DeadcellsCardModel(2, CardType.Attack, Ca
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-
+        await base.OnPlay(choiceContext, cardPlay);
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .FromCard(this)
             .Targeting(cardPlay.Target)
@@ -56,7 +56,6 @@ public sealed class ClusterGrenade() : DeadcellsCardModel(2, CardType.Attack, Ca
             }
             await CreatureCmd.Damage(choiceContext, enemy, base.DynamicVars.ExtraDamage.BaseValue, ValueProp.Move, this);
         }
-        await base.OnPlay(choiceContext, cardPlay);
     }
 
     protected override void OnUpgrade()

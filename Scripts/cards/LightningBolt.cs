@@ -12,11 +12,12 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Deadcells.Scripts.cards;
 //闪电光束
-//造成 !D! 点伤害，如果上一张牌是 *闪电光束 ，打出后回到手中并使伤害+7。如果本回合你打出了4张以上 *闪电光束 ，则回合结束时受到 !M! 点伤害。
 [Pool(typeof(DeadcellsCardPool))]
 public sealed class LightningBolt() : DeadcellsCardModel(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override bool Purple => true;
+
+    private int UsedTime {  get; set; }
     protected override HashSet<CardTag> CanonicalTags => [];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => new CardKeyword[]
@@ -33,11 +34,17 @@ public sealed class LightningBolt() : DeadcellsCardModel(1, CardType.Attack, Car
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new DamageVar(7, ValueProp.Move),
+        new CalculationBaseVar(7),
         new ExtraDamageVar(7),
         new CardsVar(4),
-        new IntVar("UsedTime", 0),
-        new IntVar("TotalDamage", 7)
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, target) =>
+        {
+            if (card is LightningBolt lb)
+            {
+                return lb.UsedTime;
+            }
+            return 1;
+        })
     };
 
     private bool CanComeBack
@@ -64,54 +71,50 @@ public sealed class LightningBolt() : DeadcellsCardModel(1, CardType.Attack, Car
         }
     }
 
-    protected override bool ShouldGlowGoldInternal => CanComeBack && base.DynamicVars["UsedTime"].IntValue >= 1;
+    protected override bool ShouldGlowGoldInternal => CanComeBack && UsedTime >= 1;
 
-    protected override bool ShouldGlowRedInternal => CanComeBack && base.DynamicVars["UsedTime"].IntValue >= 3;
+    protected override bool ShouldGlowRedInternal => CanComeBack && UsedTime >= 3;
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
 
-        await DamageCmd.Attack(base.DynamicVars["TotalDamage"].BaseValue)
+        await DamageCmd.Attack(base.DynamicVars.CalculatedDamage)
                 .FromCard(this)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
         if (CanComeBack)
         {
-            await Task.Run(() => base.DynamicVars["UsedTime"].UpgradeValueBy(1));
-            await Task.Run(() => base.DynamicVars["TotalDamage"].UpgradeValueBy(base.DynamicVars.ExtraDamage.BaseValue));
+            await Task.Run(() => UsedTime += 1);
             await CardPileCmd.Add(this, PileType.Hand, CardPilePosition.Bottom);
         }
 
-        if (base.DynamicVars["UsedTime"].IntValue >= base.DynamicVars.Cards.IntValue)
+        if (UsedTime >= base.DynamicVars.Cards.IntValue)
         {
-            await CreatureCmd.Damage(choiceContext, base.Owner.Creature, base.DynamicVars["UsedTime"].BaseValue, ValueProp.Unblockable, base.Owner.Creature);
+            await CreatureCmd.Damage(choiceContext, base.Owner.Creature, UsedTime, ValueProp.Unpowered, base.Owner.Creature);
         }
     }
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars.Damage.UpgradeValueBy(3);
+        base.DynamicVars["CalculationBase"].UpgradeValueBy(3);
     }
 
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        base.DynamicVars["UsedTime"].ResetToBase();
-        base.DynamicVars["TotalDamage"].ResetToBase();
+        UsedTime = 0;
         return base.AfterPlayerTurnStart(choiceContext, player);
     }
 
     public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
-        base.DynamicVars["UsedTime"].ResetToBase();
-        base.DynamicVars["TotalDamage"].ResetToBase();
+        UsedTime = 0;
         return base.AfterTurnEnd(choiceContext, side);
     }
 
     public override Task AfterCombatVictory(CombatRoom room)
     {
-        base.DynamicVars["UsedTime"].ResetToBase();
-        base.DynamicVars["TotalDamage"].ResetToBase();
+        UsedTime = 0;
         return base.AfterCombatVictory(room);
     }
 }

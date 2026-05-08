@@ -42,9 +42,9 @@ public sealed class SmokeGrenade() : DeadcellsCardModel(1, CardType.Skill, CardR
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await base.OnPlay(choiceContext, cardPlay);
         await PowerCmd.Apply<SmokeBombPower>(base.Owner.Creature, base.DynamicVars["SmokeBombPower"].BaseValue, base.Owner.Creature, this);
         await PowerCmd.Apply<VigorPower>(base.Owner.Creature, base.DynamicVars["VigorPower"].BaseValue, base.Owner.Creature, this);
-        await base.OnPlay(choiceContext, cardPlay);
     }
 
     protected override void OnUpgrade()

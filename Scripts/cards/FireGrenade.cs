@@ -41,6 +41,7 @@ public sealed class FireGrenade() : DeadcellsCardModel(1, CardType.Attack, CardR
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await base.OnPlay(choiceContext, cardPlay);
         foreach (Creature enemy in base.CombatState.HittableEnemies)
         {
             if (enemy == null) continue;
@@ -51,7 +52,6 @@ public sealed class FireGrenade() : DeadcellsCardModel(1, CardType.Attack, CardR
                 .TargetingAllOpponents(base.CombatState)
                 .WithHitFx("vfx/vfx_attack_slash", null, null)
                 .Execute(choiceContext);
-        await base.OnPlay(choiceContext, cardPlay);
     }
 
     protected override void OnUpgrade()

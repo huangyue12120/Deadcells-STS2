@@ -40,6 +40,7 @@ public sealed class MagneticGrenade() : DeadcellsCardModel(1, CardType.Attack, C
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await base.OnPlay(choiceContext, cardPlay);
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .WithHitCount(base.DynamicVars.Repeat.IntValue)
                 .FromCard(this)
@@ -51,7 +52,6 @@ public sealed class MagneticGrenade() : DeadcellsCardModel(1, CardType.Attack, C
             if (enemy == null) continue;
             await PowerCmd.Apply<MagneticPower>(enemy, base.DynamicVars["MagneticPower"].BaseValue, base.Owner.Creature, this);
         }
-        await base.OnPlay(choiceContext, cardPlay);
     }
 
     protected override void OnUpgrade()

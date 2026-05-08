@@ -1,7 +1,12 @@
 using BaseLib.Abstracts;
 using BaseLib.Utils;
+using Deadcells.Scripts.cards;
+using MegaCrit.Sts2.Core.CardSelection;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rooms;
@@ -28,6 +33,12 @@ public sealed class CorruptedArtifact : CustomRelicModel
         new IntVar("Curse", 0)
     };
 
+    public override bool HasUponPickupEffect => true;
+
+    public override async Task AfterObtained()
+    {
+        await PlayerCmd.GainGold(base.DynamicVars.Gold.BaseValue, base.Owner);
+    }
     public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
         if (target != base.Owner.Creature)

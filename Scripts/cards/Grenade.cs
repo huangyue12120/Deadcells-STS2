@@ -39,6 +39,7 @@ public sealed class Grenade() : DeadcellsCardModel(0, CardType.Attack, CardRarit
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await base.OnPlay(choiceContext, cardPlay);
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .FromCard(this)
             .Targeting(cardPlay.Target)
@@ -56,7 +57,6 @@ public sealed class Grenade() : DeadcellsCardModel(0, CardType.Attack, CardRarit
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
         }
-        await base.OnPlay(choiceContext, cardPlay);
     }
 
     protected override void OnUpgrade()

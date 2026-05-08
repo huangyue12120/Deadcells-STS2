@@ -34,7 +34,7 @@ public sealed class IceArmor() : DeadcellsCardModel(1, CardType.Skill, CardRarit
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
         new BlockVar(5, ValueProp.Move),
-        new IntVar("FixedBlock", 9),
+        new BlockVar("FixedBlock", 9, ValueProp.Move),
         new PowerVar<FrostbitePower>(1)
     };
 

@@ -1,9 +1,11 @@
+using BaseLib.Extensions;
 using BaseLib.Utils;
 using Deadcells.Scripts.character;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -80,8 +82,17 @@ public sealed class PianoTwo() : DeadcellsCardModel(2, CardType.Attack, CardRari
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new DamageVar(16, ValueProp.Move)
+        new DamageVar(16, ValueProp.Move),
     };
+
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    {
+        if(cardSource == this && dealer == base.Owner.Creature && target != base.Owner.Creature && props.IsPoweredAttack_() && this.WasLastCardPlayedPiano)
+        {
+            return 2;
+        }
+        return 1;
+    }
 
     private bool WasLastCardPlayedPiano
     {
@@ -100,10 +111,6 @@ public sealed class PianoTwo() : DeadcellsCardModel(2, CardType.Attack, CardRari
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (WasLastCardPlayedPiano)
-        {
-            base.DynamicVars.Damage.UpgradeValueBy(16);
-        }
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .FromCard(this)
                 .Targeting(cardPlay.Target)
@@ -147,7 +154,7 @@ public sealed class PianoThree() : DeadcellsCardModel(2, CardType.Attack, CardRa
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new DamageVar(32, ValueProp.Move)
+        new DamageVar(32, ValueProp.Move),
     };
 
     private bool WasLastCardPlayedPiano
@@ -163,14 +170,19 @@ public sealed class PianoThree() : DeadcellsCardModel(2, CardType.Attack, CardRa
         }
     }
 
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    {
+        if (cardSource == this && dealer == base.Owner.Creature && target != base.Owner.Creature && props.IsPoweredAttack_() && this.WasLastCardPlayedPiano)
+        {
+            return 2;
+        }
+        return 1;
+    }
+
     protected override bool ShouldGlowRedInternal => WasLastCardPlayedPiano;
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (WasLastCardPlayedPiano && base.DynamicVars.Damage.IntValue == 32)
-        {
-            base.DynamicVars.Damage.UpgradeValueBy(32);
-        }
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .FromCard(this)
                 .TargetingAllOpponents(base.CombatState)

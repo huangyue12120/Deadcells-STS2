@@ -41,6 +41,7 @@ public sealed class IceGrenade() : DeadcellsCardModel(1, CardType.Attack, CardRa
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await base.OnPlay(choiceContext, cardPlay);
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .FromCard(this)
                 .TargetingAllOpponents(base.CombatState)
@@ -50,7 +51,6 @@ public sealed class IceGrenade() : DeadcellsCardModel(1, CardType.Attack, CardRa
         {
             await PowerCmd.Apply<FrostbitePower>(enemy, base.DynamicVars["FrostbitePower"].BaseValue, base.Owner.Creature, this);
         }
-        await base.OnPlay(choiceContext, cardPlay);
     }
 
     protected override void OnUpgrade()

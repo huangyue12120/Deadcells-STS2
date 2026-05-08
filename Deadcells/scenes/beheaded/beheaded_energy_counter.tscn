@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bvnoc33fddqkg"]
+[gd_scene load_steps=25 format=3 uid="uid://bvnoc33fddqkg"]
 
 [ext_resource type="Material" uid="uid://ft58cpw2uxdl" path="res://Deadcells/scenes/beheaded/energy_orb_dark.tres" id="1_8clox"]
 [ext_resource type="Script" uid="uid://bcgu20p40w8xd" path="res://Scripts/nodes/BeheadedNEnergyCounter.cs" id="1_nbmc3"]
@@ -41,6 +41,10 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ywtl3"]
 resource_local_to_scene = true
 blend_mode = 1
+
+[sub_resource type="FontVariation" id="FontVariation_cb0xl"]
+base_font = ExtResource("7_0u1ew")
+spacing_glyph = 2
 
 [node name="BeheadedEnergyCounter" type="Control"]
 layout_mode = 3
@@ -239,7 +243,7 @@ theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 16
 theme_override_constants/shadow_outline_size = 16
-theme_override_fonts/font = ExtResource("7_0u1ew")
+theme_override_fonts/font = SubResource("FontVariation_cb0xl")
 theme_override_font_sizes/font_size = 36
 text = "3/3"
 horizontal_alignment = 1
@@ -247,3 +251,4 @@ vertical_alignment = 1
 script = ExtResource("8_wnfe7")
 theme_override_font_sizes/font_size = 36
 theme_override_constants/outline_size = 16
+theme_override_fonts/font = SubResource("FontVariation_cb0xl")

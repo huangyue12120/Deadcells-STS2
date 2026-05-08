@@ -13,7 +13,6 @@ namespace Deadcells.Scripts.powers;
 
 // 音速
 // 发射你抽到的下 1 张攻击牌
-
 public sealed class SCbPower : CustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;

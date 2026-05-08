@@ -1,27 +1,35 @@
 using BaseLib.Abstracts;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Rewards;
-using MegaCrit.Sts2.Core.Rooms;
-using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Deadcells.Scripts.powers;
-//夜光
-//战斗结束时额外获得1组卡牌奖励 
-public sealed class NightLightPower : CustomPowerModel
+
+public sealed class GraySpeedPower : CustomPowerModel
 {
     public override PowerType Type => PowerType.Buff;
 
     public override PowerStackType StackType => PowerStackType.Counter;
+
     public override string? CustomPackedIconPath => $"res://Deadcells/images/powers/{Id.Entry.ToLowerInvariant()}.png";
 
     public override string? CustomBigIconPath => $"res://Deadcells/images/powers/{Id.Entry.ToLowerInvariant()}.png";
 
     public override string? CustomBigBetaIconPath => $"res://Deadcells/images/powers/{Id.Entry.ToLowerInvariant()}.png";
+
     protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
     {
-
     };
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
@@ -29,12 +37,9 @@ public sealed class NightLightPower : CustomPowerModel
 
     };
 
-    public override Task AfterCombatEnd(CombatRoom room)
+    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        for (int i = 0; i < base.Amount; i++)
-        {
-            room.AddExtraReward(base.Owner.Player, new CardReward(CardCreationOptions.ForRoom(base.Owner.Player, room.RoomType), 3, base.Owner.Player));
-        }
-        return Task.CompletedTask;
+        await CardPileCmd.Draw(choiceContext, this.Amount, base.Owner.Player);
+        await PowerCmd.TickDownDuration(this);
     }
 }
