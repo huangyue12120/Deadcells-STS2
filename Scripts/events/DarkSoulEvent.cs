@@ -1,4 +1,5 @@
 using BaseLib.Abstracts;
+using Deadcells.Scripts.character;
 using Deadcells.Scripts.relics;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Events;
@@ -19,6 +20,8 @@ public sealed class DarkSoulEvent : CustomEventModel
 
     private bool findGold = false;
 
+    public override bool IsAllowed(IRunState runState) => runState.Players.Any(p => p.Character is Beheaded);
+
     // 设置一些数值
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -26,9 +29,6 @@ public sealed class DarkSoulEvent : CustomEventModel
         new GoldVar(100),
         new CardsVar(1)
     ];
-
-    // 什么时候会遇到。这里的条件是所有玩家的金币都大于等于60
-    public override bool IsAllowed(IRunState runState) => true;
 
     // 事件开始前的逻辑。这里是禁止玩家移除药水
     protected override Task BeforeEventStarted(bool isPreFinished)

@@ -26,8 +26,8 @@ public sealed class HalfLifeEvent : CustomEventModel
         new CardsVar(1)
     ];
 
-    // 什么时候会遇到。这里的条件是所有玩家的金币都大于等于60
-    public override bool IsAllowed(IRunState runState) => true;
+    // 什么时候会遇到。这里的条件是有任何一个玩家角色为枭首者。
+    public override bool IsAllowed(IRunState runState) => runState.Players.Any(p => p.Character is Beheaded);
 
     // 事件开始前的逻辑。这里是禁止玩家移除药水
     protected override Task BeforeEventStarted(bool isPreFinished)
