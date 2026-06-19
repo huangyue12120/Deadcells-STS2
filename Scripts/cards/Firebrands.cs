@@ -47,7 +47,7 @@ public sealed class Firebrands() : DeadcellsCardModel(2, CardType.Skill, CardRar
             {
                 continue;
             }
-            await PowerCmd.Apply<BurnsPower>(enemy, base.DynamicVars["BurnsPower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<BurnsPower>(choiceContext, enemy, base.DynamicVars["BurnsPower"].BaseValue, base.Owner.Creature, this);
         }
     }
 

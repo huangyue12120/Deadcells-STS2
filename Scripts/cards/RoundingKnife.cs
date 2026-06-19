@@ -44,8 +44,8 @@ public sealed class RoundingKnife() : DeadcellsCardModel(0, CardType.Skill, Card
     {
         foreach (Creature enemy in base.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<WeakPower>(enemy, base.DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<BleedingPower>(enemy, base.DynamicVars["BleedingPower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<WeakPower>(choiceContext, enemy, base.DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<BleedingPower>(choiceContext, enemy, base.DynamicVars["BleedingPower"].BaseValue, base.Owner.Creature, this);
         }
     }
 
@@ -95,8 +95,8 @@ public sealed class RoundingKnifePlus() : DeadcellsCardModel(0, CardType.Skill, 
     {
         foreach (Creature enemy in base.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<WeakPower>(enemy, base.DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<BleedingPower>(enemy, base.DynamicVars["BleedingPower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<WeakPower>(choiceContext, enemy, base.DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<BleedingPower>(choiceContext, enemy, base.DynamicVars["BleedingPower"].BaseValue, base.Owner.Creature, this);
         }
         await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);
         await PlayerCmd.GainEnergy(base.DynamicVars.Energy.BaseValue, base.Owner);

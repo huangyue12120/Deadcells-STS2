@@ -42,7 +42,7 @@ public sealed class UnyieldingWillPower : CustomPowerModel
 
     };
 
-    private bool LostHpInPreviousTurn => CombatManager.Instance.History.Entries.OfType<DamageReceivedEntry>().Any((DamageReceivedEntry e) => e.Receiver == base.Owner && !e.Result.WasFullyBlocked && e.RoundNumber + 1 == base.Owner.CombatState.RoundNumber);
+    private bool LostHpInPreviousTurn => CombatManager.Instance.History.Entries.OfType<DamageReceivedEntry>().Any((DamageReceivedEntry e) => e.Receiver == base.Owner && !e.Result.WasFullyBlocked && int.Parse(System.Text.RegularExpressions.Regex.Match(e.HumanReadableString, @"Rd\s+(\d+)").Groups[1].Value) + 1 == base.Owner.CombatState.RoundNumber);
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {

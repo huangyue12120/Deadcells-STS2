@@ -37,7 +37,7 @@ public sealed class BleedingSpread() : DeadcellsCardModel(1, CardType.Power, Car
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<BleedingSpreadPower>(base.Owner.Creature, base.DynamicVars["BleedingSpreadPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<BleedingSpreadPower>(choiceContext, base.Owner.Creature, base.DynamicVars["BleedingSpreadPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

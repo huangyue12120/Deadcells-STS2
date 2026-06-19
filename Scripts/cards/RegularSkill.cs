@@ -39,7 +39,7 @@ public sealed class RegularSkill() : DeadcellsCardModel(2, CardType.Power, CardR
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<RegularSkillPower>(base.Owner.Creature, base.DynamicVars["RegularSkillPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<RegularSkillPower>(choiceContext, base.Owner.Creature, base.DynamicVars["RegularSkillPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

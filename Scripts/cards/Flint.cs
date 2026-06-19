@@ -56,16 +56,16 @@ public sealed class Flint() : DeadcellAmplifyCardModel(1, CardType.Attack, CardR
         {
             foreach (Creature enemy in CombatState.HittableEnemies)
             {
-                await PowerCmd.Apply<BurnsPower>(enemy, DynamicVars["BurnsPower"].BaseValue, Owner.Creature, this);
+                await PowerCmd.Apply<BurnsPower>(choiceContext, enemy, DynamicVars["BurnsPower"].BaseValue, Owner.Creature, this);
                 if(enemy == cardPlay.Target)
                 {
-                    await PowerCmd.Apply<BurnsPower>(enemy, DynamicVars["BurnsPower"].BaseValue, Owner.Creature, this);
+                    await PowerCmd.Apply<BurnsPower>(choiceContext, enemy, DynamicVars["BurnsPower"].BaseValue, Owner.Creature, this);
                 }
             }
         }
         else
         {
-            await PowerCmd.Apply<BurnsPower>(cardPlay.Target, DynamicVars["BurnsPower"].BaseValue, Owner.Creature, this);
+            await PowerCmd.Apply<BurnsPower>(choiceContext, cardPlay.Target, DynamicVars["BurnsPower"].BaseValue, Owner.Creature, this);
         }
     }
 

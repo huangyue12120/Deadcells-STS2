@@ -27,7 +27,7 @@
   "DEADCELLS-CORROSIVE_CLOUD.title": "腐蚀毒云",
   "DEADCELLS-CORROSIVE_CLOUD.description": "当你给予敌人3层以上[gold]流血[/gold]时，每3层[gold]流血[/gold]就给予敌人{CorrosiveCloudPower:diff()}层[gold]中毒[/gold]。",
   "DEADCELLS-CROW_BAR.title": "撬棍",
-  "DEADCELLS-CROW_BAR.description": "造成{Damage:diff()}点伤害。\n如果你在本回合打出的上一张牌是[gold]技能[/gold]牌，改为造成{DoubleDamage:diff()}倍伤害。",
+  "DEADCELLS-CROW_BAR.description": "造成{Damage:diff()}点伤害。\n如果你在本回合打出的上一张牌是[gold]技能[/gold]牌，改为造成2倍伤害。",
   "DEADCELLS-CROW_FEATHERS.title": "乌鸦之翼",
   "DEADCELLS-CROW_FEATHERS.description": "获得[gold]翱翔[/gold]。\n你在本回合每受到一次攻击，都会对攻击者造成{Damage:diff()}点伤害。（该效果受攻击加成的影响）",
   "DEADCELLS-CURSED_SWORD.title": "诅咒之刃",

@@ -36,7 +36,7 @@ public sealed class InTime() : DeadcellsCardModel(3, CardType.Power, CardRarity.
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<InTimePower>(base.Owner.Creature, base.DynamicVars["InTimePower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<InTimePower>(choiceContext, base.Owner.Creature, base.DynamicVars["InTimePower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

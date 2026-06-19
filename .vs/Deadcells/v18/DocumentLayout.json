@@ -1,10 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\stsmod\\Deadcells-STS2\\",
+  "WorkspaceRootPath": "E:\\stsmod\\STS2\\deadcells\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|e:\\stsmod\\deadcells-sts2\\scripts\\character\\beheaded.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|solutionrelative:scripts\\character\\beheaded.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|e:\\stsmod\\sts2\\deadcells\\scripts\\relics\\predator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|solutionrelative:scripts\\relics\\predator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|e:\\stsmod\\sts2\\deadcells\\scripts\\cards\\crowbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BA404E6-BD31-4FD5-BD1B-18587890D899}|Deadcells.csproj|solutionrelative:scripts\\cards\\crowbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\stsmod\\STS2\\deadcells\\Deadcells\\localization\\eng\\cards.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Deadcells\\localization\\eng\\cards.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\stsmod\\STS2\\deadcells\\Deadcells\\localization\\zhs\\cards.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Deadcells\\localization\\zhs\\cards.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Beheaded.cs",
-              "DocumentMoniker": "E:\\stsmod\\Deadcells-STS2\\Scripts\\character\\Beheaded.cs",
-              "RelativeDocumentMoniker": "Scripts\\character\\Beheaded.cs",
-              "ToolTip": "E:\\stsmod\\Deadcells-STS2\\Scripts\\character\\Beheaded.cs",
-              "RelativeToolTip": "Scripts\\character\\Beheaded.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "cards.json",
+              "DocumentMoniker": "E:\\stsmod\\STS2\\deadcells\\Deadcells\\localization\\zhs\\cards.json",
+              "RelativeDocumentMoniker": "Deadcells\\localization\\zhs\\cards.json",
+              "ToolTip": "E:\\stsmod\\STS2\\deadcells\\Deadcells\\localization\\zhs\\cards.json",
+              "RelativeToolTip": "Deadcells\\localization\\zhs\\cards.json",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB0AAABnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-18T10:25:39.775Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "cards.json",
+              "DocumentMoniker": "E:\\stsmod\\STS2\\deadcells\\Deadcells\\localization\\eng\\cards.json",
+              "RelativeDocumentMoniker": "Deadcells\\localization\\eng\\cards.json",
+              "ToolTip": "E:\\stsmod\\STS2\\deadcells\\Deadcells\\localization\\eng\\cards.json",
+              "RelativeToolTip": "Deadcells\\localization\\eng\\cards.json",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAjwHIAAACcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-18T10:23:42.241Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CrowBar.cs",
+              "DocumentMoniker": "E:\\stsmod\\STS2\\deadcells\\Scripts\\cards\\CrowBar.cs",
+              "RelativeDocumentMoniker": "Scripts\\cards\\CrowBar.cs",
+              "ToolTip": "E:\\stsmod\\STS2\\deadcells\\Scripts\\cards\\CrowBar.cs",
+              "RelativeToolTip": "Scripts\\cards\\CrowBar.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAA3wDcAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-17T12:13:24.021Z",
+              "WhenOpened": "2026-06-18T10:20:36.222Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Predator.cs",
+              "DocumentMoniker": "E:\\stsmod\\STS2\\deadcells\\Scripts\\relics\\Predator.cs",
+              "RelativeDocumentMoniker": "Scripts\\relics\\Predator.cs",
+              "ToolTip": "E:\\stsmod\\STS2\\deadcells\\Scripts\\relics\\Predator.cs",
+              "RelativeToolTip": "Scripts\\relics\\Predator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-18T09:51:01.544Z",
               "EditorCaption": ""
             }
           ]

@@ -39,7 +39,7 @@ public sealed class BloodthirstyShieldPower : CustomPowerModel
             this.Flash();
             foreach (Creature enemy in base.CombatState.HittableEnemies)
             {
-                await PowerCmd.Apply<BleedingPower>(enemy, this.Amount, base.Owner, null);
+                await PowerCmd.Apply<BleedingPower>(choiceContext, enemy, this.Amount, base.Owner, null);
             }
         }
     }
@@ -47,6 +47,6 @@ public sealed class BloodthirstyShieldPower : CustomPowerModel
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
         this.Flash();
-        await PowerCmd.Apply<BloodthirstyShieldPower>(base.Owner, -this.Amount, base.Owner, null);
+        await PowerCmd.Apply<BloodthirstyShieldPower>(choiceContext, base.Owner, -this.Amount, base.Owner, null);
     }
 }

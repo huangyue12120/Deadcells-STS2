@@ -50,7 +50,7 @@ public sealed class SCbPower : CustomPowerModel
 
     public override async Task AfterCardDrawnEarly(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
     {
-        if (card.Owner.Creature == base.Owner && card.Type == CardType.Attack && !base.Owner.CombatState.HittableEnemies.All((Creature c) => c.ShowsInfiniteHp))
+        if (card.Owner.Creature == base.Owner && card.Type == CardType.Attack && !base.Owner.CombatState.HittableEnemies.All((Creature c) => c.HpDisplay==HpDisplay.Normal)) 
         {
             if (this.Amount > 0)
             {

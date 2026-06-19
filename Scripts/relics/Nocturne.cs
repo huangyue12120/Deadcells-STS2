@@ -69,7 +69,7 @@ public sealed class Nocturne : CustomRelicModel
                 {
                     randomEnemy = base.Owner.RunState.Rng.CombatTargets.NextItem(base.Owner.Creature.CombatState.HittableEnemies);
                 }
-                await PowerCmd.Apply<NocturneAttackedPower>(randomEnemy, base.DynamicVars["NocturneAttackedPower"].BaseValue, null, null);
+                await PowerCmd.Apply<NocturneAttackedPower>(context, randomEnemy, base.DynamicVars["NocturneAttackedPower"].BaseValue, null, null);
                 _cardsPlayedThisTurn = 0;
             }
 

@@ -40,7 +40,7 @@ public sealed class ThunderShield() : DeadcellsCardModel(1, CardType.Skill, Card
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-        await PowerCmd.Apply<SetupStrikePower>(base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<SetupStrikePower>(choiceContext, base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

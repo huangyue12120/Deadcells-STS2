@@ -58,7 +58,7 @@ public sealed class SnakeFangs() : DeadcellsCardModel(1, CardType.Attack, CardRa
                 .Execute(choiceContext);
         }
 
-        await PowerCmd.Apply<PoisonPower>(cardPlay.Target, base.DynamicVars["PoisonPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<PoisonPower>(choiceContext, cardPlay.Target, base.DynamicVars["PoisonPower"].BaseValue, base.Owner.Creature, this);
         if (!base.Keywords.Contains(CardKeyword.Exhaust) && !base.ExhaustOnNextPlay)
         {
             await CardPileCmd.Add(this, PileType.Draw, CardPilePosition.Top);

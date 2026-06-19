@@ -46,12 +46,12 @@ public sealed class IronStaffPower : CustomPowerModel
                 await CreatureCmd.Damage(choiceContext, enemy, this.BlockNumber, ValueProp.Unpowered, base.Owner, null);
             }
         }
-        await PowerCmd.Apply<IronStaffPower>(base.Owner, -this.Amount, base.Owner, null);
+        await PowerCmd.Apply<IronStaffPower>(choiceContext, base.Owner, -this.Amount, base.Owner, null);
     }
 
-    public override Task BeforeTurnEndVeryEarly(PlayerChoiceContext choiceContext, CombatSide side)
+    public override Task BeforeSideTurnEndVeryEarly(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         this.BlockNumber = base.Owner.Block;
-        return base.BeforeTurnEndVeryEarly(choiceContext, side);
+        return base.BeforeSideTurnEndVeryEarly(choiceContext, side, participants);
     }
 }

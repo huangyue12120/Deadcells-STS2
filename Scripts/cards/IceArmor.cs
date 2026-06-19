@@ -53,7 +53,7 @@ public sealed class IceArmor() : DeadcellsCardModel(1, CardType.Skill, CardRarit
         foreach (Creature enemy in base.CombatState.HittableEnemies)
         {
             if (enemy == null) continue;
-            await PowerCmd.Apply<FrostbitePower>(enemy, base.DynamicVars["FrostbitePower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<FrostbitePower>(choiceContext,enemy, base.DynamicVars["FrostbitePower"].BaseValue, base.Owner.Creature, this);
         }
     }
 

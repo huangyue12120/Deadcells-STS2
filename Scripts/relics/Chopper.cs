@@ -27,7 +27,7 @@ public sealed class Chopper : CustomRelicModel
         new IntVar("DeadLine", 15)
     };
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (side == CombatSide.Player)
         {

@@ -71,8 +71,8 @@ public sealed class Saucepan() : DeadcellsCardModel(1, CardType.Attack, CardRari
 
         if (this.IsUpgraded)
         {
-            await PowerCmd.Apply<WeakPower>(cardPlay.Target, base.DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<VulnerablePower>(cardPlay.Target, base.DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target, base.DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target, base.DynamicVars.Weak.BaseValue, base.Owner.Creature, this);
         }
         await Task.Run(() => base.DynamicVars.Repeat.ResetToBase());
     }

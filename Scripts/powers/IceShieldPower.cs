@@ -36,7 +36,7 @@ public sealed class IceShieldPower : CustomPowerModel
 
     private bool IsPlayerTurn = false;
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (side == CombatSide.Enemy)
         {
@@ -45,7 +45,7 @@ public sealed class IceShieldPower : CustomPowerModel
         else
         {
             this.IsPlayerTurn = true;
-            await PowerCmd.Apply<IceShieldPower>(base.Owner, -base.Amount, base.Owner, null);
+            await PowerCmd.Apply<IceShieldPower>(new ThrowingPlayerChoiceContext(), base.Owner, -base.Amount, base.Owner, null);
         }
     }
 
@@ -57,8 +57,8 @@ public sealed class IceShieldPower : CustomPowerModel
             this.Flash();
             foreach (Creature enemy in base.CombatState.HittableEnemies)
             {
-                await PowerCmd.Apply<IceShieldLoseStrPower>(enemy, base.Amount, base.Owner, null);
-                await PowerCmd.Apply<StrengthPower>(enemy, -base.Amount, base.Owner, null);
+                await PowerCmd.Apply<IceShieldLoseStrPower>(choiceContext, enemy, base.Amount, base.Owner, null);
+                await PowerCmd.Apply<StrengthPower>(choiceContext, enemy, -base.Amount, base.Owner, null);
             }
         }
     }
@@ -86,7 +86,7 @@ public sealed class IceShieldLoseStrPower : CustomPowerModel
 
     private int _turnsUntilEffect = 1;
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (side != CombatSide.Enemy)
             return;
@@ -97,7 +97,7 @@ public sealed class IceShieldLoseStrPower : CustomPowerModel
             return;
         }
 
-        await PowerCmd.Apply<StrengthPower>(base.Owner, this.Amount, null, null);
-        await PowerCmd.Apply<IceShieldLoseStrPower>(base.Owner, -this.Amount, null, null);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, base.Owner, this.Amount, null, null);
+        await PowerCmd.Apply<IceShieldLoseStrPower>(choiceContext, base.Owner, -this.Amount, null, null);
     }
 }

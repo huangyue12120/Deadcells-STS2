@@ -34,7 +34,7 @@ public sealed class NextTurnLoseFlightPower : CustomPowerModel
     {
         if (this.Amount == 1)
         {
-            await PowerCmd.Apply<SoarPower>(base.Owner, -1, base.Owner, null);
+            await PowerCmd.Apply<SoarPower>(choiceContext, base.Owner, -1, base.Owner, null);
             await PowerCmd.TickDownDuration(this);
         }
         else

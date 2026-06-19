@@ -50,7 +50,7 @@ public sealed class MagneticGrenade() : DeadcellsCardModel(1, CardType.Attack, C
         foreach (Creature enemy in base.CombatState.HittableEnemies)
         {
             if (enemy == null) continue;
-            await PowerCmd.Apply<MagneticPower>(enemy, base.DynamicVars["MagneticPower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<MagneticPower>(choiceContext, enemy, base.DynamicVars["MagneticPower"].BaseValue, base.Owner.Creature, this);
         }
     }
 

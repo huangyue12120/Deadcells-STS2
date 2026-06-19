@@ -41,7 +41,7 @@ public sealed class BloodthirstyShield() : DeadcellsCardModel(2, CardType.Skill,
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-        await PowerCmd.Apply<BloodthirstyShieldPower>(base.Owner.Creature, base.DynamicVars["BloodthirstyShieldPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<BloodthirstyShieldPower>(choiceContext, base.Owner.Creature, base.DynamicVars["BloodthirstyShieldPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

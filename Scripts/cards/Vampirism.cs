@@ -40,7 +40,7 @@ public sealed class Vampirism() : DeadcellsCardModel(2, CardType.Skill, CardRari
     {
         foreach (Creature enemy in base.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<BleedingPower>(enemy, base.DynamicVars["BleedingPower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<BleedingPower>(choiceContext, enemy, base.DynamicVars["BleedingPower"].BaseValue, base.Owner.Creature, this);
         }
         int num = await Task.Run(() => base.CombatState.HittableEnemies.Sum((Creature enemy) => enemy.GetPowerAmount<BleedingPower>()));
         if (num > 0)

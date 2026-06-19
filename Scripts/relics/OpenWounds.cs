@@ -39,7 +39,7 @@ public sealed class OpenWounds : CustomRelicModel
     {
         if (target != null && target.IsAlive && dealer == base.Owner.Creature && result.UnblockedDamage > 0 && props.IsPoweredAttack_())
         {
-            await PowerCmd.Apply<BleedingPower>(target, base.DynamicVars["BleedingPower"].BaseValue, base.Owner.Creature, null);
+            await PowerCmd.Apply<BleedingPower>(choiceContext, target, base.DynamicVars["BleedingPower"].BaseValue, base.Owner.Creature, null);
         }
     }
 }

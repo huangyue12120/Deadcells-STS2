@@ -41,8 +41,8 @@ public sealed class EmergencyDoor() : DeadcellsCardModel(3, CardType.Power, Card
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay, false);
-        await PowerCmd.Apply<BufferPower>(base.Owner.Creature, base.DynamicVars["BufferPower"].BaseValue, base.Owner.Creature, this);
-        await PowerCmd.Apply<WeakPower>(base.Owner.Creature, base.DynamicVars["WeakPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<BufferPower>(choiceContext, base.Owner.Creature, base.DynamicVars["BufferPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<WeakPower>(choiceContext, base.Owner.Creature, base.DynamicVars["WeakPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

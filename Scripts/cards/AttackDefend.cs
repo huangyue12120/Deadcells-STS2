@@ -37,7 +37,7 @@ public sealed class AttackDefend() : DeadcellsCardModel(1, CardType.Power, CardR
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<AttackDefendPower>(base.Owner.Creature, base.DynamicVars["AttackDefendPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<AttackDefendPower>(choiceContext, base.Owner.Creature, base.DynamicVars["AttackDefendPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

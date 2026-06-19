@@ -125,13 +125,13 @@ public sealed class GrenadePower : CustomPowerModel
         }
     }
 
-    public override Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (side == base.Owner.Side && combatState.RoundNumber <= 1)
         {
             cooldownEntries.Clear();
         }
-        return base.AfterSideTurnStart(side, combatState);
+        return base.AfterSideTurnStart(side, participants, combatState);
     }
 
     public override Task AfterCombatVictory(CombatRoom room)

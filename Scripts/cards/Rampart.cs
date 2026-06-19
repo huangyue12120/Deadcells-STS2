@@ -36,7 +36,7 @@ public sealed class Rampart() : DeadcellsCardModel(3, CardType.Skill, CardRarity
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<RampartPower>(base.Owner.Creature, base.DynamicVars["RampartPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<RampartPower>(choiceContext, base.Owner.Creature, base.DynamicVars["RampartPower"].BaseValue, base.Owner.Creature, this);
         IEnumerable<CardModel> cards = from c in PileType.Hand.GetPile(base.Owner).Cards where c.Type == CardType.Skill select c;
         await CardCmd.Discard(choiceContext, cards);
     }

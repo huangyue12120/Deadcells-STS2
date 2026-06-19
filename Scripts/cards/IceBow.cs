@@ -46,7 +46,7 @@ public sealed class IceBow() : DeadcellsCardModel(1, CardType.Attack, CardRarity
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
-        await PowerCmd.Apply<FrostbitePower>(cardPlay.Target, base.DynamicVars["FrostbitePower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<FrostbitePower>(choiceContext, cardPlay.Target, base.DynamicVars["FrostbitePower"].BaseValue, base.Owner.Creature, this);
 
         IEnumerable<CardModel> cardsToDiscard = PileType.Hand.GetPile(base.Owner).Cards.ToList().UnstableShuffle(base.Owner.RunState.Rng.CombatCardSelection).Take(base.DynamicVars.Cards.IntValue);
         await CardCmd.Discard(choiceContext, cardsToDiscard);

@@ -37,7 +37,7 @@ public sealed class Speed() : DeadcellsCardModel(1, CardType.Skill, CardRarity.U
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<SpeedPower>(base.Owner.Creature, base.DynamicVars["SpeedPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<SpeedPower>(choiceContext, base.Owner.Creature, base.DynamicVars["SpeedPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

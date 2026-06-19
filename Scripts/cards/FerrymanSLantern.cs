@@ -3,6 +3,7 @@ using Deadcells.Scripts.character;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -94,17 +95,17 @@ public sealed class FerrymanSLantern() : DeadcellsCardModel(0, CardType.Skill, C
             {
                 ((FerrymanSLanternThree)cardModel).SetParent(this);
             }
-            await CardPileCmd.AddGeneratedCardToCombat(cardModel, PileType.Hand, true);
+            await CardPileCmd.AddGeneratedCardToCombat(cardModel, PileType.Hand, cardPlay.Card.Owner);
         }
     }
 
-    public override Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (side == CombatSide.Player && combatState.RoundNumber <= 1)
         {
             Ammunition = 0;
         }
-        return base.AfterSideTurnStart(side, combatState);
+        return base.AfterSideTurnStart(side, participants, combatState);
     }
 
     public override Task AfterCombatVictory(CombatRoom room)

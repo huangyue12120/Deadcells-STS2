@@ -3,8 +3,14 @@
     "",
     "\\Deadcells",
     "\\Deadcells\\localization",
-    "\\Deadcells\\localization\\zhs"
+    "\\Deadcells\\localization\\zhs",
+    "\\Scripts",
+    "\\Scripts\\cards",
+    "\\Scripts\\character",
+    "\\Scripts\\powers",
+    "\\Scripts\\relics",
+    "\\Scripts\\utils"
   ],
-  "SelectedNode": "\\Deadcells\\localization\\zhs\\ancients.json",
+  "SelectedNode": "\\Scripts\\relics\\Predator.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -80,7 +80,7 @@ public sealed class AlchemyCarbine() : DeadcellsCardModel(1, CardType.Skill, Car
                     NCombatRoom.Instance.CombatVfxContainer.AddChildSafely(child4);
                 }
             }
-            await PowerCmd.Apply<PoisonPower>(enemy, base.DynamicVars.Poison.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<PoisonPower>(choiceContext, enemy, base.DynamicVars.Poison.BaseValue, base.Owner.Creature, this);
         }
 
         await CardPileCmd.Draw(choiceContext, base.DynamicVars.Cards.BaseValue, base.Owner);

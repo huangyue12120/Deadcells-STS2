@@ -97,7 +97,7 @@ public sealed class Toothpick() : DeadcellsCardModel(0, CardType.Skill, CardRari
                 ((ToothpickFour)cardModel).SetParent(this);
             }
 
-            await CardPileCmd.AddGeneratedCardToCombat(cardModel, PileType.Hand, true);
+            await CardPileCmd.AddGeneratedCardToCombat(cardModel, PileType.Hand, cardPlay.Card.Owner);
         }
     }
 

@@ -3,6 +3,7 @@ using Deadcells.Scripts.character;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -106,10 +107,10 @@ public sealed class LightningBolt() : DeadcellsCardModel(1, CardType.Attack, Car
         return base.AfterPlayerTurnStart(choiceContext, player);
     }
 
-    public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         UsedTime = 0;
-        return base.AfterTurnEnd(choiceContext, side);
+        return base.AfterSideTurnEnd(choiceContext, side, participants);
     }
 
     public override Task AfterCombatVictory(CombatRoom room)

@@ -35,7 +35,7 @@ public sealed class RuthlessPower : CustomPowerModel
         new IntVar("Debuff", 2),
     };
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if (power.Type == PowerType.Debuff && power.Owner != applier && power.Applier == applier && applier == base.Owner && amount > 0)//&& _triggerCountThisTurn < _maxTriggersPerTurn)
         {

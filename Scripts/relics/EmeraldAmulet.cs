@@ -4,6 +4,7 @@ using Deadcells.Scripts.cards;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
@@ -27,7 +28,7 @@ public sealed class EmeraldAmulet : CustomRelicModel
         HoverTipFactory.FromCard<Roll>()
     };
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (side == CombatSide.Player && combatState.RoundNumber <= 1)
         {
@@ -63,7 +64,7 @@ public sealed class EmeraldAmuletPlus : CustomRelicModel
         HoverTipFactory.FromCard<Roll>(true)
     };
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (side == CombatSide.Player && combatState.RoundNumber <= 1)
         {

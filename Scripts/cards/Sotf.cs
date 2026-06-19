@@ -43,8 +43,8 @@ public sealed class Sotf() : DeadcellsCardModel(1, CardType.Power, CardRarity.Un
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
-        await PowerCmd.Apply<DexterityPower>(base.Owner.Creature, base.DynamicVars.Dexterity.BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<DexterityPower>(choiceContext, base.Owner.Creature, base.DynamicVars.Dexterity.BaseValue, base.Owner.Creature, this);
         if (this.IsUpgraded)
         {
             if (CombatState == null) return;
@@ -65,11 +65,11 @@ public sealed class Sotf() : DeadcellsCardModel(1, CardType.Power, CardRarity.Un
             {
                 if (cardModel is TmpStrCard)
                 {
-                    await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, base.DynamicVars["ExtraStrOrDex"].BaseValue, base.Owner.Creature, this);
+                    await PowerCmd.Apply<StrengthPower>(choiceContext, base.Owner.Creature, base.DynamicVars["ExtraStrOrDex"].BaseValue, base.Owner.Creature, this);
                 }
                 if (cardModel is TmpDexCard)
                 {
-                    await PowerCmd.Apply<DexterityPower>(base.Owner.Creature, base.DynamicVars["ExtraStrOrDex"].BaseValue, base.Owner.Creature, this);
+                    await PowerCmd.Apply<DexterityPower>(choiceContext, base.Owner.Creature, base.DynamicVars["ExtraStrOrDex"].BaseValue, base.Owner.Creature, this);
                 }
             }
         }

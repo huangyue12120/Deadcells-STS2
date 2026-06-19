@@ -41,7 +41,7 @@ public sealed class Counterattack : CustomRelicModel
         if (target == base.Owner.Creature && dealer != base.Owner.Creature && dealer != null && props.IsPoweredAttack_())
         {
             Flash();
-            await PowerCmd.Apply<VigorPower>(base.Owner.Creature, base.DynamicVars["VigorPower"].BaseValue, base.Owner.Creature, null);
+            await PowerCmd.Apply<VigorPower>(choiceContext, base.Owner.Creature, base.DynamicVars["VigorPower"].BaseValue, base.Owner.Creature, null);
         }
     }
 }

@@ -62,13 +62,13 @@ public sealed class RamRune : CustomRelicModel
         return base.AfterPlayerTurnStart(choiceContext, player);
     }
 
-    public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (side == CombatSide.Player)
         {
             this.atkAmt = 0;
         }
-        return base.AfterTurnEnd(choiceContext, side);
+        return base.AfterSideTurnEnd(choiceContext, side, participants);
     }
 
     public override Task AfterCombatVictory(CombatRoom room)

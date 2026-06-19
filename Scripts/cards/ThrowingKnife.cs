@@ -44,7 +44,7 @@ public sealed class ThrowingKnife() : DeadcellsCardModel(0, CardType.Attack, Car
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
-        await PowerCmd.Apply<BleedingPower>(cardPlay.Target, base.DynamicVars["BleedingPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<BleedingPower>(choiceContext, cardPlay.Target, base.DynamicVars["BleedingPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

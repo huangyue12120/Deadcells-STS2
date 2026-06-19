@@ -50,7 +50,7 @@ public sealed class RootGrenade() : DeadcellsCardModel(2, CardType.Attack, CardR
         await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
         foreach (Creature enemy in base.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<ConstrictPower>(enemy, base.DynamicVars["ConstrictPower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<ConstrictPower>(choiceContext, enemy, base.DynamicVars["ConstrictPower"].BaseValue, base.Owner.Creature, this);
         }
     }
 

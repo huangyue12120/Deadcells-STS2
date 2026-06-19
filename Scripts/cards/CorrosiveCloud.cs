@@ -40,7 +40,7 @@ public sealed class CorrosiveCloud() : DeadcellsCardModel(1, CardType.Power, Car
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<CorrosiveCloudPower>(base.Owner.Creature, base.DynamicVars["CorrosiveCloudPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<CorrosiveCloudPower>(choiceContext, base.Owner.Creature, base.DynamicVars["CorrosiveCloudPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

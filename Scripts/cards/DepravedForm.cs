@@ -42,9 +42,9 @@ public sealed class DepravedForm() : DeadcellsCardModel(3, CardType.Power, CardR
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, base.DynamicVars["StrengthPower"].BaseValue, base.Owner.Creature, this);
-        await PowerCmd.Apply<DepravedPower>(base.Owner.Creature, base.DynamicVars["DepravedPower"].BaseValue, base.Owner.Creature, this);
-        await PowerCmd.Apply<VulnerablePower>(base.Owner.Creature, base.DynamicVars["VulnerablePower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, base.Owner.Creature, base.DynamicVars["StrengthPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<DepravedPower>(choiceContext, base.Owner.Creature, base.DynamicVars["DepravedPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<VulnerablePower>(choiceContext, base.Owner.Creature, base.DynamicVars["VulnerablePower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

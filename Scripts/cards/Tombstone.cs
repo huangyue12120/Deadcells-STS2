@@ -45,11 +45,11 @@ public sealed class Tombstone() : DeadcellsCardModel(2, CardType.Attack, CardRar
         AttackCommand attackCommand = await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_bite", null, "blunt_attack.mp3")
             .Execute(choiceContext);
-        if (shouldTriggerFatal && attackCommand.Results.Any((DamageResult r) => r.WasTargetKilled))
+        if (shouldTriggerFatal && attackCommand.Results.SelectMany(list => list).Any(r => r.WasTargetKilled))
         {
             foreach (Creature enemy in CombatState.HittableEnemies)
             {
-                await PowerCmd.Apply<DoomPower>(enemy, base.DynamicVars.Doom.BaseValue, base.Owner.Creature, this);
+                await PowerCmd.Apply<DoomPower>(choiceContext, enemy, base.DynamicVars.Doom.BaseValue, base.Owner.Creature, this);
             }
             await DoomPower.DoomKill(DoomPower.GetDoomedCreatures(base.CombatState.HittableEnemies));
         }

@@ -37,7 +37,7 @@ public sealed class LaceratingAura() : DeadcellsCardModel(1, CardType.Power, Car
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<LaceratingAuraPower>(base.Owner.Creature, base.DynamicVars["LaceratingAuraPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<LaceratingAuraPower>(choiceContext, base.Owner.Creature, base.DynamicVars["LaceratingAuraPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

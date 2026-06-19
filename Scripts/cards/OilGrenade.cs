@@ -49,7 +49,7 @@ public sealed class OilGrenade() : DeadcellsCardModel(1, CardType.Attack, CardRa
                 .Execute(choiceContext);
         foreach (Creature enemy in base.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<OilPower>(enemy, base.DynamicVars["OilPower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<OilPower>(choiceContext, enemy, base.DynamicVars["OilPower"].BaseValue, base.Owner.Creature, this);
         }
     }
 

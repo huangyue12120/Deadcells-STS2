@@ -58,7 +58,7 @@ public sealed class OiledSword() : DeadcellsCardModel(1, CardType.Attack, CardRa
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
         }
-        await PowerCmd.Apply<OilPower>(cardPlay.Target, base.DynamicVars["OilPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<OilPower>(choiceContext, cardPlay.Target, base.DynamicVars["OilPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

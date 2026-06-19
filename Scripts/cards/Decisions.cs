@@ -66,20 +66,20 @@ public sealed class Decisions() : DeadcellsCardModel(1, CardType.Power, CardRari
             {
                 if (cardModel is TmpDecRed)
                 {
-                    await PowerCmd.Apply<ProactivePower>(base.Owner.Creature, 1, base.Owner.Creature, this);
+                    await PowerCmd.Apply<ProactivePower>(choiceContext, base.Owner.Creature, 1, base.Owner.Creature, this);
                 }
                 if (cardModel is TmpDecPurple)
                 {
-                    await PowerCmd.Apply<StrategicRetreatPower>(base.Owner.Creature, 1, base.Owner.Creature, this);
+                    await PowerCmd.Apply<StrategicRetreatPower>(choiceContext, base.Owner.Creature, 1, base.Owner.Creature, this);
                 }
                 if (cardModel is TmpDecGreen)
                 {
-                    await PowerCmd.Apply<UnyieldingWillPower>(base.Owner.Creature, 1, base.Owner.Creature, this);
+                    await PowerCmd.Apply<UnyieldingWillPower>(choiceContext, base.Owner.Creature, 1, base.Owner.Creature, this);
                 }
                 if (cardModel is TmpDecGray)
                 {
                     await CardPileCmd.Draw(choiceContext, 4, base.Owner);
-                    await PowerCmd.Apply<GraySpeedPower>(base.Owner.Creature, 3, base.Owner.Creature, this);
+                    await PowerCmd.Apply<GraySpeedPower>(choiceContext, base.Owner.Creature, 3, base.Owner.Creature, this);
                 }
             }
         }

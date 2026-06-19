@@ -36,7 +36,7 @@ public sealed class FireworksTechnician() : DeadcellsCardModel(1, CardType.Power
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<FireworksTechnicianPower>(base.Owner.Creature, base.DynamicVars["FireworksTechnicianPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<FireworksTechnicianPower>(choiceContext, base.Owner.Creature, base.DynamicVars["FireworksTechnicianPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

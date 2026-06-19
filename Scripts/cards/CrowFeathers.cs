@@ -42,9 +42,9 @@ public sealed class CrowFeathers() : DeadcellsCardModel(2, CardType.Skill, CardR
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<SoarPower>(base.Owner.Creature, base.DynamicVars["SoarPower"].BaseValue, base.Owner.Creature, this);
-        await PowerCmd.Apply<NextTurnLoseFlightPower>(base.Owner.Creature, base.DynamicVars["NextTurnLoseFlightPower"].BaseValue, base.Owner.Creature, this);
-        await PowerCmd.Apply<FlameBarrierPower>(base.Owner.Creature, base.DynamicVars.Damage.PreviewValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<SoarPower>(choiceContext, base.Owner.Creature, base.DynamicVars["SoarPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<NextTurnLoseFlightPower>(choiceContext, base.Owner.Creature, base.DynamicVars["NextTurnLoseFlightPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<FlameBarrierPower>(choiceContext, base.Owner.Creature, base.DynamicVars.Damage.PreviewValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

@@ -40,7 +40,7 @@ public sealed class IronStaff() : DeadcellsCardModel(3, CardType.Skill, CardRari
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-        await PowerCmd.Apply<IronStaffPower>(base.Owner.Creature, base.DynamicVars["IronStaffPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<IronStaffPower>(choiceContext, base.Owner.Creature, base.DynamicVars["IronStaffPower"].BaseValue, base.Owner.Creature, this);
         await Task.Run(() => PlayerCmd.EndTurn(base.Owner, canBackOut: false));
     }
 

@@ -38,7 +38,7 @@ public sealed class Predator : CustomRelicModel
         if (target.Side != base.Owner.Creature.Side)
         {
             Flash();
-            await PowerCmd.Apply<SmokeBombPower>(base.Owner.Creature, base.DynamicVars["SmokeBombPower"].BaseValue, base.Owner.Creature, null);
+            await PowerCmd.Apply<SmokeBombPower>(choiceContext, base.Owner.Creature, base.DynamicVars["SmokeBombPower"].BaseValue, base.Owner.Creature, null);
         }
     }
 }

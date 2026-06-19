@@ -52,7 +52,7 @@ public sealed class FireBlast() : DeadcellsCardModel(0, CardType.Attack, CardRar
             foreach (Creature enemy in base.CombatState.HittableEnemies)
             {
                 if (enemy == null) continue;
-                await PowerCmd.Apply<BurnsPower>(enemy, base.DynamicVars["BurnsPower"].BaseValue, base.Owner.Creature, this);
+                await PowerCmd.Apply<BurnsPower>(choiceContext, enemy, base.DynamicVars["BurnsPower"].BaseValue, base.Owner.Creature, this);
             }
         }
     }

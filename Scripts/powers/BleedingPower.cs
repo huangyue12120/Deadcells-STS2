@@ -59,7 +59,7 @@ public sealed class BleedingPower : CustomPowerModel
             this.Flash();
             int damage = this.Amount == 1 ? 1 : Mathf.FloorToInt(this.Amount * this.Sign);
             await CreatureCmd.Damage(context, base.Owner, (decimal)damage, ValueProp.Unpowered, cardPlay.Card);
-            await PowerCmd.Apply<BleedingPower>(base.Owner, (decimal)-damage, base.Owner, null);
+            await PowerCmd.Apply<BleedingPower>(context, base.Owner, (decimal)-damage, base.Owner, null);
         }
     }
 

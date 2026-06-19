@@ -41,7 +41,7 @@ public sealed class StrategyStagnated() : DeadcellsCardModel(0, CardType.Skill, 
         await PlayerCmd.GainEnergy(base.DynamicVars.Energy.BaseValue, base.Owner);
         SpeedDown speedDown = CombatState.CreateCard<SpeedDown>(base.Owner);
         IEnumerable<CardModel> enumerable = [speedDown];
-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(enumerable, PileType.Draw, addedByPlayer: true, CardPilePosition.Random));
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(enumerable, PileType.Draw, cardPlay.Card.Owner, CardPilePosition.Random));
     }
 
     protected override void OnUpgrade()

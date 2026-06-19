@@ -72,14 +72,14 @@ public sealed class ProactivePower : CustomPowerModel
         {
             this.Flash();
             this.CanGive = true;
-            await PowerCmd.Apply<ProactivePower>(base.Owner, (decimal)(1 - this.Amount), base.Owner, null);
+            await PowerCmd.Apply<ProactivePower>(context, base.Owner, (decimal)(1 - this.Amount), base.Owner, null);
             await Task.Run(() => base.DynamicVars["ExtraDmg"].UpgradeValueBy(-base.DynamicVars["ExtraDmg"].BaseValue));
         }
 
         if (!this.CanGive && cardPlay.Card.Type == CardType.Skill)
         {
             this.Flash();
-            await PowerCmd.Apply<ProactivePower>(base.Owner, 1, base.Owner, null);
+            await PowerCmd.Apply<ProactivePower>(context, base.Owner, 1, base.Owner, null);
             await Task.Run(() => base.DynamicVars["ExtraDmg"].UpgradeValueBy(33));
         }
     }
@@ -91,6 +91,6 @@ public sealed class ProactivePower : CustomPowerModel
         {
             base.DynamicVars["ExtraDmg"].UpgradeValueBy(-base.DynamicVars["ExtraDmg"].BaseValue);
         }
-        await PowerCmd.Apply<ProactivePower>(base.Owner, (decimal)(1 - this.Amount), base.Owner, null);
+        await PowerCmd.Apply<ProactivePower>(choiceContext, base.Owner, (decimal)(1 - this.Amount), base.Owner, null);
     }
 }

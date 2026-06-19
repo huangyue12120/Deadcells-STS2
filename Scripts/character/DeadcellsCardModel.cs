@@ -131,7 +131,7 @@ public abstract class DeadcellsCardModel(
                 GrenadePower grenadePower = base.Owner.Creature.GetPower<GrenadePower>();
                 if (grenadePower == null)
                 {
-                    await PowerCmd.Apply<GrenadePower>(base.Owner.Creature, 1, base.Owner.Creature, this);
+                    await PowerCmd.Apply<GrenadePower>(choiceContext, base.Owner.Creature, 1, base.Owner.Creature, this);
                     grenadePower = base.Owner.Creature.GetPower<GrenadePower>();
                 }
                 await grenadePower.AddGrenadeToCooldown(this, this.GrenadeCooldownTime);

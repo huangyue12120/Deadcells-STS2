@@ -38,7 +38,7 @@ public sealed class LaceratingAuraPower : CustomPowerModel
         if (dealer == base.Owner && target != base.Owner && props.IsPoweredAttack_() && result.UnblockedDamage > 0)
         {
             this.Flash();
-            await PowerCmd.Apply<BleedingPower>(target, this.Amount, base.Owner, null);
+            await PowerCmd.Apply<BleedingPower>(choiceContext, target, this.Amount, base.Owner, null);
         }
     }
 }

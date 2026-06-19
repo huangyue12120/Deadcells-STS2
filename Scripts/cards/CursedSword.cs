@@ -3,6 +3,7 @@ using Deadcells.Scripts.character;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -47,13 +48,13 @@ public sealed class CursedSword() : DeadcellsCardModel(1, CardType.Attack, CardR
             .Execute(choiceContext);
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if(side == CombatSide.Player && combatState.RoundNumber <= 1)
         {
             IEnumerable<CardModel> forCombat = CardFactory.GetForCombat(base.Owner, from c in ModelDb.CardPool<CurseCardPool>().GetUnlockedCards(base.Owner.UnlockState, base.Owner.RunState.CardMultiplayerConstraint)
                                                                                     select c, 1, base.Owner.RunState.Rng.CombatCardGeneration);
-            CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(forCombat, PileType.Draw, addedByPlayer: true, CardPilePosition.Random));
+            CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(forCombat, PileType.Draw, base.Owner, CardPilePosition.Random));
         }
     }
 

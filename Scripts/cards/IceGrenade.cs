@@ -49,7 +49,7 @@ public sealed class IceGrenade() : DeadcellsCardModel(1, CardType.Attack, CardRa
                 .Execute(choiceContext);
         foreach (Creature enemy in base.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<FrostbitePower>(enemy, base.DynamicVars["FrostbitePower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<FrostbitePower>(choiceContext, enemy, base.DynamicVars["FrostbitePower"].BaseValue, base.Owner.Creature, this);
         }
     }
 

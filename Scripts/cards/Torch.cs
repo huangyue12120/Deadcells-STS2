@@ -48,11 +48,11 @@ public sealed class Torch() : DeadcellsCardModel(1, CardType.Attack, CardRarity.
         if (cardPlay.Target.HasPower<BurnsPower>())
         {
             decimal BurnsTotal = base.DynamicVars["BurnsPower"].BaseValue + base.DynamicVars["ExtraBurnsPower"].BaseValue;
-            await PowerCmd.Apply<BurnsPower>(cardPlay.Target, BurnsTotal, base.Owner.Creature, this);
+            await PowerCmd.Apply<BurnsPower>(choiceContext, cardPlay.Target, BurnsTotal, base.Owner.Creature, this);
         }
         else
         {
-            await PowerCmd.Apply<BurnsPower>(cardPlay.Target, base.DynamicVars["BurnsPower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<BurnsPower>(choiceContext, cardPlay.Target, base.DynamicVars["BurnsPower"].BaseValue, base.Owner.Creature, this);
         }
     }
 

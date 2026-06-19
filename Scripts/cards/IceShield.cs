@@ -41,7 +41,7 @@ public sealed class IceShield() : DeadcellsCardModel(1, CardType.Skill, CardRari
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
-        await PowerCmd.Apply<IceShieldPower>(base.Owner.Creature, base.DynamicVars["IceShieldPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<IceShieldPower>(choiceContext, base.Owner.Creature, base.DynamicVars["IceShieldPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

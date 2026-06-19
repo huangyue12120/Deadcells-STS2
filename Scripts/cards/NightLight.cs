@@ -35,7 +35,7 @@ public sealed class NightLight() : DeadcellsCardModel(1, CardType.Power, CardRar
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<NightLightPower>(base.Owner.Creature, base.DynamicVars["NightLightPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<NightLightPower>(choiceContext, base.Owner.Creature, base.DynamicVars["NightLightPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

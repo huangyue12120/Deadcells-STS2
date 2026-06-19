@@ -50,7 +50,7 @@ public sealed class ScytheClaw() : DeadcellsCardModel(3, CardType.Attack, CardRa
                 .Execute(choiceContext);
         foreach (Creature enemy in base.CombatState.HittableEnemies)
         {
-            await PowerCmd.Apply<VulnerablePower>(enemy, base.DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<VulnerablePower>(choiceContext, enemy, base.DynamicVars.Vulnerable.BaseValue, base.Owner.Creature, this);
         }
 
         ScytheClawTwo clawTwo = CombatState.CreateCard<ScytheClawTwo>(base.Owner);
@@ -59,7 +59,7 @@ public sealed class ScytheClaw() : DeadcellsCardModel(3, CardType.Attack, CardRa
             CardCmd.Upgrade(clawTwo);
         }
         IEnumerable<CardModel> enumerable = [clawTwo];
-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(enumerable, PileType.Draw, addedByPlayer: true, CardPilePosition.Random));
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(enumerable, PileType.Draw, cardPlay.Card.Owner, CardPilePosition.Random));
     }
 
     protected override void OnUpgrade()
@@ -115,7 +115,7 @@ public sealed class ScytheClawTwo() : DeadcellsCardModel(3, CardType.Attack, Car
             CardCmd.Upgrade(claw);
         }
         IEnumerable<CardModel> enumerable = [claw];
-        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(enumerable, PileType.Draw, addedByPlayer: true, CardPilePosition.Random));
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardsToCombat(enumerable, PileType.Draw, cardPlay.Card.Owner, CardPilePosition.Random));
     }
 
     protected override void OnUpgrade()

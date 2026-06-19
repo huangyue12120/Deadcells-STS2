@@ -63,7 +63,7 @@ public sealed class BurnsPower : CustomPowerModel
         return base.ModifyDamageAdditive(target, amount, props, dealer, cardSource);
     }
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (side != base.Owner.Side)
         {
@@ -73,7 +73,7 @@ public sealed class BurnsPower : CustomPowerModel
         await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), base.Owner, base.Amount, ValueProp.Unpowered, null, null);
         if (base.Owner.IsAlive)
         {
-            await PowerCmd.Apply<BurnsPower>(base.Owner, -this.Amount, base.Owner, null);
+            await PowerCmd.Apply<BurnsPower>(new ThrowingPlayerChoiceContext(), base.Owner, -this.Amount, base.Owner, null);
         }
         else
         {

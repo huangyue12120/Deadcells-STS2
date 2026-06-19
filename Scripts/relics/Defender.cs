@@ -57,7 +57,7 @@ public sealed class Defender : CustomRelicModel
         return base.ModifyDamageAdditive(target, amount, props, dealer, cardSource);
     }
 
-    public override Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
         if (side == CombatSide.Enemy)
         {
@@ -70,7 +70,7 @@ public sealed class Defender : CustomRelicModel
                 base.DynamicVars["Turn"].UpgradeValueBy(1);
             }
         }
-        return base.AfterTurnEnd(choiceContext, side);
+        return base.AfterSideTurnEnd(choiceContext, side, participants);
     }
 
     public override Task AfterCombatVictory(CombatRoom room)

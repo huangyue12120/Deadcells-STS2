@@ -36,7 +36,7 @@ public sealed class SonicCarbine() : DeadcellsCardModel(1, CardType.Skill, CardR
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<SCbPower>(base.Owner.Creature, base.DynamicVars["SCbPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<SCbPower>(choiceContext, base.Owner.Creature, base.DynamicVars["SCbPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

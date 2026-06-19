@@ -53,8 +53,8 @@ public sealed class HattoriSKatana() : DeadcellsCardModel(1, CardType.Attack, Ca
 
         if (base.DynamicVars.Repeat.IntValue >= 3)
         {
-            await PowerCmd.Apply<StrengthPower>(base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
-            await PowerCmd.Apply<DexterityPower>(base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<StrengthPower>(choiceContext, base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<DexterityPower>(choiceContext, base.Owner.Creature, base.DynamicVars.Strength.BaseValue, base.Owner.Creature, this);
         }
 
         if (this.EnergyCost.GetAmountToSpend() != 0)

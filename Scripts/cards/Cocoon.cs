@@ -38,7 +38,7 @@ public sealed class Cocoon() : DeadcellsCardModel(1, CardType.Power, CardRarity.
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<CocoonPower>(base.Owner.Creature, base.DynamicVars["CocoonPower"].BaseValue, base.Owner.Creature, this);
+        await PowerCmd.Apply<CocoonPower>(choiceContext, base.Owner.Creature, base.DynamicVars["CocoonPower"].BaseValue, base.Owner.Creature, this);
     }
 
     protected override void OnUpgrade()

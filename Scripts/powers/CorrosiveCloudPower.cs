@@ -3,6 +3,7 @@ using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Logging;
@@ -32,13 +33,13 @@ public sealed class CorrosiveCloudPower : CustomPowerModel
         new IntVar("PoisonNumber", 0)
     };
 
-    public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         if(power.Target != applier && power.Applier == applier && applier == base.Owner && power is BleedingPower && amount > 0)
         {
             this.Flash();
             await Task.Run(() => base.DynamicVars["PoisonNumber"].UpgradeValueBy(Mathf.FloorToInt((float)amount / 3)));
-            await PowerCmd.Apply<PoisonPower>(power.Owner, base.DynamicVars["PoisonNumber"].IntValue * this.Amount, base.Owner, null);
+            await PowerCmd.Apply<PoisonPower>(choiceContext, power.Owner, base.DynamicVars["PoisonNumber"].IntValue * this.Amount, base.Owner, null);
             await Task.Run(() => base.DynamicVars["PoisonNumber"].ResetToBase());
         }
     }

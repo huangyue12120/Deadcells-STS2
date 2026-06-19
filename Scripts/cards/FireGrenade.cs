@@ -45,7 +45,7 @@ public sealed class FireGrenade() : DeadcellsCardModel(1, CardType.Attack, CardR
         foreach (Creature enemy in base.CombatState.HittableEnemies)
         {
             if (enemy == null) continue;
-            await PowerCmd.Apply<BurnsPower>(enemy, base.DynamicVars["BurnsPower"].BaseValue, base.Owner.Creature, this);
+            await PowerCmd.Apply<BurnsPower>(choiceContext, enemy, base.DynamicVars["BurnsPower"].BaseValue, base.Owner.Creature, this);
         }
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .FromCard(this)
