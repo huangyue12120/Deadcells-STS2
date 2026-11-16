@@ -1,0 +1,97 @@
+name: Build Deadcells
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Prepare game references
+        shell: pwsh
+        env:
+          REFERENCES_URL: ${{ secrets.STS2_REFERENCES_URL }}
+          REFERENCES_SHA256: ${{ vars.STS2_REFERENCES_SHA256 }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          if (!$env:REFERENCES_URL -or $env:REFERENCES_SHA256 -notmatch '^[a-fA-F0-9]{64}$') {
+            throw "Set STS2_REFERENCES_URL secret and STS2_REFERENCES_SHA256 variable; see README.md."
+          }
+          if ([uri]::new($env:REFERENCES_URL).Scheme -ne "https") {
+            throw "STS2_REFERENCES_URL must use HTTPS."
+          }
+          New-Item -ItemType Directory -Force .build | Out-Null
+          try {
+            Invoke-WebRequest -Uri $env:REFERENCES_URL -OutFile .build/references.zip
+          } catch {
+            throw "Reference download failed; check STS2_REFERENCES_URL."
+          }
+          $actual = (Get-FileHash .build/references.zip -Algorithm SHA256).Hash
+          if ($actual -ne $env:REFERENCES_SHA256) {
+            throw "Reference bundle SHA256 mismatch."
+          }
+          Expand-Archive .build/references.zip .build/references
+      - name: Install Godot 4.5.1 .NET
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $asset = "Godot_v4.5.1-stable_mono_win64"
+          $url = "https://github.com/godotengine/godot/releases/download/4.5.1-stable/$asset.zip"
+          Invoke-WebRequest -Uri $url -OutFile .build/godot.zip
+          $expected = "8ce2346c05c8a9674ab267b4a0a7e2764a6e47da730713aa932c2a6db774a239"
+          if ((Get-FileHash .build/godot.zip -Algorithm SHA256).Hash -ne $expected) {
+            throw "Godot download SHA256 mismatch."
+          }
+          Expand-Archive .build/godot.zip .build/godot
+          $godot = (Get-ChildItem .build/godot -Recurse -Filter "*_console.exe" | Select-Object -First 1).FullName
+          if (!$godot) { throw "Godot console executable not found." }
+          "GODOT_EXE=$godot" >> $env:GITHUB_ENV
+      - name: Build and validate package
+        shell: pwsh
+        env:
+          BUILD_REF_TYPE: ${{ github.ref_type }}
+          BUILD_REF_NAME: ${{ github.ref_name }}
+        run: |
+          $arguments = @("tools/build.py", "package", "--references", ".build/references", "--godot", $env:GODOT_EXE)
+          if ($env:BUILD_REF_TYPE -eq "tag") {
+            $arguments += @("--version", $env:BUILD_REF_NAME.Substring(1))
+          }
+          python @arguments
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Deadcells
+          path: dist/Deadcells.zip
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: Deadcells
+          path: dist
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: gh release create "$RELEASE_TAG" dist/Deadcells.zip --verify-tag --draft --title "$RELEASE_TAG" --generate-notes

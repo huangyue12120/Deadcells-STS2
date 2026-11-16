@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <Sts2Dir>D:/Steam/steamapps/common/Slay the Spire 2</Sts2Dir>
+    <Sts2DataDir Condition="'$(Sts2DataDir)' == ''">$(Sts2Dir)/data_sts2_windows_x86_64</Sts2DataDir>
+    <CopyToGame Condition="'$(CopyToGame)' == ''">false</CopyToGame>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,17 @@
+{
+  "id": "Deadcells",
+  "name": "Deadcells mod",
+  "author": "[CSTG]GongJuYin",
+  "description": "Dead Cells character and content mod for Slay the Spire 2.",
+  "version": "0.2.0",
+  "min_game_version": "0.107.1",
+  "has_pck": true,
+  "has_dll": true,
+  "dependencies": [
+    {
+      "id": "BaseLib",
+      "min_version": "3.2.1"
+    }
+  ],
+  "affects_gameplay": true
+}

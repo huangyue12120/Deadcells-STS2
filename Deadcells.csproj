@@ -1,4 +1,5 @@
 <Project Sdk="Godot.NET.Sdk/4.5.1">
+  <Import Project="local.props" Condition="Exists('local.props')" />
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>true</ImplicitUsings>
@@ -6,8 +7,9 @@
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
-    <Sts2Dir>E:\steam\steamapps\common\Slay the Spire 2</Sts2Dir>
-    <Sts2DataDir>$(Sts2Dir)\data_sts2_windows_x86_64</Sts2DataDir>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <Sts2DataDir Condition="'$(Sts2DataDir)' == '' and '$(Sts2Dir)' != ''">$(Sts2Dir)/data_sts2_windows_x86_64</Sts2DataDir>
+    <CopyToGame Condition="'$(CopyToGame)' == ''">false</CopyToGame>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Deadcells\**" />
@@ -15,9 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="BaseLib">
-      <HintPath>..\..\..\steam\steamapps\common\Slay the Spire 2\mods\BaseLib\BaseLib.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Alchyr.Sts2.BaseLib" Version="[3.2.1]" PrivateAssets="all" />
     <Reference Include="sts2">
       <HintPath>$(Sts2DataDir)\sts2.dll</HintPath>
       <Private>false</Private>
@@ -38,10 +38,18 @@
     <Folder Include="Scripts\potions\" />
   </ItemGroup>
 
-  <!-- 自动复制 dll -->
-  <Target Name="Copy Mod" AfterTargets="PostBuildEvent">
+  <Target Name="CheckGameReferences" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="'$(Sts2DataDir)' == ''" Text="Set Sts2DataDir to the game assembly directory in local.props or with -p:Sts2DataDir=..." />
+    <Error Condition="!Exists('$(Sts2DataDir)/sts2.dll')" Text="Missing $(Sts2DataDir)/sts2.dll" />
+    <Error Condition="!Exists('$(Sts2DataDir)/0Harmony.dll')" Text="Missing $(Sts2DataDir)/0Harmony.dll" />
+    <Error Condition="!Exists('$(Sts2DataDir)/Steamworks.NET.dll')" Text="Missing $(Sts2DataDir)/Steamworks.NET.dll" />
+  </Target>
+
+  <Target Name="Copy Mod" AfterTargets="PostBuildEvent" Condition="'$(CopyToGame)' == 'true'">
+    <Error Condition="'$(Sts2Dir)' == ''" Text="CopyToGame requires Sts2Dir." />
     <Message Text="Copying mod to Slay the Spire 2 mods folder..." Importance="high" />
     <MakeDir Directories="$(Sts2Dir)\mods\" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(Sts2Dir)\mods\$(MSBuildProjectName)\" />
+    <Copy SourceFiles="$(MSBuildProjectName).json" DestinationFolder="$(Sts2Dir)\mods\$(MSBuildProjectName)\" />
   </Target>
 </Project>
