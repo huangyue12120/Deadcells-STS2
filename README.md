@@ -2,7 +2,7 @@
 
 ## 构建基线
 
-本轮恢复游戏 **v0.107.1** 的构建：.NET SDK **9.0.321**、Godot **4.5.1 .NET**、NuGet **Alchyr.Sts2.BaseLib 3.2.1**。依赖由 `global.json` 与 `packages.lock.json` 固定。更新游戏版本时需同时检查 API 迁移，本轮不宣称兼容更新的游戏版本。
+当前构建基线为游戏 **v0.111.1**（commit `cc1f9462`）：.NET SDK **9.0.321**、Godot **4.5.1 .NET**、NuGet **Alchyr.Sts2.BaseLib 3.4.8**。依赖由 `global.json` 与 `packages.lock.json` 固定；MIG-01 已完成目标程序集编译适配，游戏内回归仍需在安装 BaseLib 3.4.8 的运行环境中验证。
 
 ## GitHub Actions
 
@@ -14,7 +14,7 @@
    python tools/build.py prepare-references --data-dir "D:/Steam/steamapps/common/Slay the Spire 2/data_sts2_windows_x86_64"
    ```
 
-   输出 `.build/sts2-references.zip` 及 SHA256。ZIP 根目录直接包含 `sts2.dll`、`0Harmony.dll`、`Steamworks.NET.dll`、`release_info.json`，版本必须是 `v0.107.1`。
+   输出 `.build/sts2-references.zip` 及 SHA256。ZIP 根目录直接包含 `sts2.dll`、`0Harmony.dll`、`Steamworks.NET.dll`、`release_info.json`，版本必须是 `v0.111.1`。
 
 2. 把引用包存放于自己控制的 HTTPS 下载地址。不要把游戏程序集提交到公共仓库或发布附件。
 

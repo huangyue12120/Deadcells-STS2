@@ -57,7 +57,7 @@ public sealed class SadistStiletto() : DeadcellsCardModel(1, CardType.Attack, Ca
         await Task.Run(() => base.DynamicVars.ExtraDamage.UpgradeValueBy(debuffNum));
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .WithHitCount((int)base.DynamicVars["RepeatTime"].PreviewValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

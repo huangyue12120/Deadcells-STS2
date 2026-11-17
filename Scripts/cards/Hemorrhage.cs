@@ -45,7 +45,7 @@ public sealed class Hemorrhage() : DeadcellsCardModel(2, CardType.Attack, CardRa
         if (cardPlay.Target.HasPower<BleedingPower>())
         {
             await DamageCmd.Attack(base.DynamicVars.ExtraDamage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
@@ -53,7 +53,7 @@ public sealed class Hemorrhage() : DeadcellsCardModel(2, CardType.Attack, CardRa
         else
         {
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

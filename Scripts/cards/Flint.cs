@@ -48,7 +48,7 @@ public sealed class Flint() : DeadcellAmplifyCardModel(1, CardType.Attack, CardR
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_bite", null, "blunt_attack.mp3")
             .Execute(choiceContext);

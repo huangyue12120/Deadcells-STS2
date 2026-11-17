@@ -2,6 +2,7 @@ using BaseLib.Abstracts;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -31,7 +32,7 @@ public sealed class Defender : CustomRelicModel
         new IntVar("Turn", 0)
     };
 
-    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
         if (target != base.Owner.Creature)
         {
@@ -41,10 +42,10 @@ public sealed class Defender : CustomRelicModel
         {
             return 1 - (base.DynamicVars["DmgDeMu"].IntValue / 100);
         }
-        return base.ModifyDamageMultiplicative(target, amount, props, dealer, cardSource);
+        return base.ModifyDamageMultiplicative(target, amount, props, dealer, cardSource, cardPlay);
     }
 
-    public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
         if (target != base.Owner.Creature)
         {
@@ -54,7 +55,7 @@ public sealed class Defender : CustomRelicModel
         {
             return (-base.DynamicVars["DmgDeAd"].BaseValue);
         }
-        return base.ModifyDamageAdditive(target, amount, props, dealer, cardSource);
+        return base.ModifyDamageAdditive(target, amount, props, dealer, cardSource, cardPlay);
     }
 
     public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)

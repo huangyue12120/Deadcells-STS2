@@ -4,9 +4,9 @@
     "net9.0": {
       "Alchyr.Sts2.BaseLib": {
         "type": "Direct",
-        "requested": "[3.2.1, 3.2.1]",
-        "resolved": "3.2.1",
-        "contentHash": "RWcEvAIo9fYfNMEr5J0I8qI7B4hqzbNImi4buvIiGRc8zAt414ORbu2N8j/FCrWVQjZP9209swSKqTq2MklEVw=="
+        "requested": "[3.4.8, 3.4.8]",
+        "resolved": "3.4.8",
+        "contentHash": "TtwFUw46lGqx2dCfJyk93+FLTaU+XX7/516LRdgGMxZ36S/k2C6MnYg8KosmmEg7l249dzG225Xhh1/GesK3YA=="
       },
       "Godot.SourceGenerators": {
         "type": "Direct",

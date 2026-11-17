@@ -54,7 +54,7 @@ public sealed class Giantkiller() : DeadcellsCardModel(1, CardType.Attack, CardR
         this.playCount++;
         decimal dmgAmt = (IsBossOrElite && !cardPlay.Target.HasPower<MinionPower>()) ? base.DynamicVars.Damage.BaseValue + base.DynamicVars["ToEliteDamage"].BaseValue : base.DynamicVars.Damage.BaseValue;
         string atkFx = this.playCount % 2 == 0 ? "vfx/vfx_attack_blunt" : "vfx/vfx_attack_slash";
-        await DamageCmd.Attack(dmgAmt).WithHitCount(base.DynamicVars.Repeat.IntValue).FromCard(this).Targeting(cardPlay.Target).WithHitFx(atkFx).Execute(choiceContext);
+        await DamageCmd.Attack(dmgAmt).WithHitCount(base.DynamicVars.Repeat.IntValue).FromCard(this, cardPlay).Targeting(cardPlay.Target).WithHitFx(atkFx).Execute(choiceContext);
         await ChangeStatus();
     }
 

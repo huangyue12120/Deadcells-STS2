@@ -43,7 +43,7 @@ public sealed class MagneticGrenade() : DeadcellsCardModel(1, CardType.Attack, C
         await base.OnPlay(choiceContext, cardPlay);
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .WithHitCount(base.DynamicVars.Repeat.IntValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

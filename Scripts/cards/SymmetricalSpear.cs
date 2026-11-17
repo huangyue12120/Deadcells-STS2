@@ -39,13 +39,13 @@ public sealed class SymmetricalSpear() : DeadcellsCardModel(1, CardType.Attack, 
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        int num = (await CreatureCmd.Damage(choiceContext, base.CombatState.HittableEnemies, base.DynamicVars.Damage.BaseValue, ValueProp.Move, base.Owner.Creature, this)).Count((DamageResult result) => result.TotalDamage > 0);
+        int num = (await CreatureCmd.Damage(choiceContext, base.CombatState.HittableEnemies, base.DynamicVars.Damage.BaseValue, ValueProp.Move, base.Owner.Creature, this, cardPlay)).Count((DamageResult result) => result.TotalDamage > 0);
         if (num >= 2)
         {
             await Task.Run(() => base.DynamicVars.Damage.UpgradeValueBy(5));
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .WithHitCount((base.DynamicVars.Repeat.IntValue - 1))
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .TargetingAllOpponents(base.CombatState)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
@@ -55,7 +55,7 @@ public sealed class SymmetricalSpear() : DeadcellsCardModel(1, CardType.Attack, 
         {
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .WithHitCount((base.DynamicVars.Repeat.IntValue - 1))
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .TargetingAllOpponents(base.CombatState)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

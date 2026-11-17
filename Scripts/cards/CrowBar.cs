@@ -53,7 +53,7 @@ public sealed class CrowBar() : DeadcellsCardModel(1, CardType.Attack, CardRarit
 
     protected override bool ShouldGlowGoldInternal => WasLastCardPlayedSkill;
 
-    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
         if (cardSource == this && dealer == base.Owner.Creature && target != base.Owner.Creature && props.IsPoweredAttack_() && this.WasLastCardPlayedSkill)
         {
@@ -65,7 +65,7 @@ public sealed class CrowBar() : DeadcellsCardModel(1, CardType.Attack, CardRarit
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

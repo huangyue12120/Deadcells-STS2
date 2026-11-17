@@ -37,7 +37,7 @@ public sealed class GiantWhistle() : DeadcellsCardModel(2, CardType.Attack, Card
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_blunt", null, null)
                 .Execute(choiceContext);

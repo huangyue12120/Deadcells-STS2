@@ -44,7 +44,7 @@ public sealed class ScytheClaw() : DeadcellsCardModel(3, CardType.Attack, CardRa
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .TargetingAllOpponents(base.CombatState)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
@@ -100,7 +100,7 @@ public sealed class ScytheClawTwo() : DeadcellsCardModel(3, CardType.Attack, Car
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.TriggerAnim(base.Owner.Creature, "Attack", base.Owner.Character.AttackAnimDelay);
-        int num = (await CreatureCmd.Damage(choiceContext, base.CombatState.HittableEnemies, base.DynamicVars.Damage.BaseValue, ValueProp.Move, base.Owner.Creature, this)).Sum((DamageResult result) => result.UnblockedDamage);
+        int num = (await CreatureCmd.Damage(choiceContext, base.CombatState.HittableEnemies, base.DynamicVars.Damage.BaseValue, ValueProp.Move, base.Owner.Creature, this, cardPlay)).Sum((DamageResult result) => result.UnblockedDamage);
         if (num >= base.DynamicVars["TargetDamage"].IntValue)
         {
             foreach (Creature c in CombatState.Enemies)

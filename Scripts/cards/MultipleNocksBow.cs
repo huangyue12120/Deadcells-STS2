@@ -41,7 +41,7 @@ public sealed class MultipleNocksBow() : DeadcellsCardModel(1, CardType.Attack, 
     {
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .WithHitCount(base.DynamicVars.Repeat.IntValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .TargetingRandomOpponents(base.CombatState)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

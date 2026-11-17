@@ -45,7 +45,7 @@ public sealed class HattoriSKatana() : DeadcellsCardModel(1, CardType.Attack, Ca
         for (int i = 0; i < base.DynamicVars.Repeat.IntValue; i++)
         {
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

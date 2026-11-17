@@ -162,7 +162,7 @@ public sealed class FerrymanSLanternTwo : DeadcellsCardModel
         if (this._parent != null)
         {
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash", null, null)
                 .Execute(choiceContext);
@@ -222,7 +222,7 @@ public sealed class FerrymanSLanternThree : DeadcellsCardModel
             for (var i = 0; i < this._parent.Ammunition; i++)
             {
                 await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                    .FromCard(this)
+                .FromCard(this, cardPlay)
                     .Targeting(cardPlay.Target)
                     .WithHitFx("vfx/vfx_attack_slash", null, null)
                     .Execute(choiceContext);

@@ -45,7 +45,7 @@ public sealed class OiledSword() : DeadcellsCardModel(1, CardType.Attack, CardRa
         {
             decimal totalDmg = base.DynamicVars.Damage.BaseValue + base.DynamicVars.ExtraDamage.BaseValue;
             await DamageCmd.Attack(totalDmg)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
@@ -53,7 +53,7 @@ public sealed class OiledSword() : DeadcellsCardModel(1, CardType.Attack, CardRa
         else
         {
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

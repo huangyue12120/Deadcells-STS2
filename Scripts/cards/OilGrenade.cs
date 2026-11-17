@@ -43,7 +43,7 @@ public sealed class OilGrenade() : DeadcellsCardModel(1, CardType.Attack, CardRa
     {
         await base.OnPlay(choiceContext, cardPlay);
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .TargetingAllOpponents(base.CombatState)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

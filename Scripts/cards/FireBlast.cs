@@ -45,7 +45,7 @@ public sealed class FireBlast() : DeadcellsCardModel(0, CardType.Attack, CardRar
         for (int i = 0; i < xValue; i++)
         {
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .TargetingAllOpponents(base.CombatState)
                 .WithHitFx("vfx/vfx_attack_slash", null, null)
                 .Execute(choiceContext);

@@ -41,7 +41,7 @@ public sealed class Grenade() : DeadcellsCardModel(0, CardType.Attack, CardRarit
     {
         await base.OnPlay(choiceContext, cardPlay);
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
@@ -52,7 +52,7 @@ public sealed class Grenade() : DeadcellsCardModel(0, CardType.Attack, CardRarit
                 continue;
             }
             await DamageCmd.Attack(base.DynamicVars.ExtraDamage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(otherEnemy)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

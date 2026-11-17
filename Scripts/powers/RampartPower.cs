@@ -1,5 +1,6 @@
 using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -33,9 +34,9 @@ public sealed class RampartPower : CustomPowerModel
 
     };
 
-    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
-        if (target != base.Owner) return base.ModifyDamageMultiplicative(target, amount, props, dealer, cardSource);
+        if (target != base.Owner) return base.ModifyDamageMultiplicative(target, amount, props, dealer, cardSource, cardPlay);
         return 0;
     }
 

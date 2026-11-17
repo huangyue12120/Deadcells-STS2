@@ -42,7 +42,7 @@ public sealed class ClusterGrenade() : DeadcellsCardModel(2, CardType.Attack, Ca
     {
         await base.OnPlay(choiceContext, cardPlay);
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
@@ -54,7 +54,7 @@ public sealed class ClusterGrenade() : DeadcellsCardModel(2, CardType.Attack, Ca
             {
                 continue;
             }
-            await CreatureCmd.Damage(choiceContext, enemy, base.DynamicVars.ExtraDamage.BaseValue, ValueProp.Move, this);
+            await CreatureCmd.Damage(choiceContext, enemy, base.DynamicVars.ExtraDamage.BaseValue, ValueProp.Move, base.Owner.Creature, this, cardPlay);
         }
     }
 

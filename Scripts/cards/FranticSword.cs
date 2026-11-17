@@ -43,7 +43,7 @@ public sealed class FranticSword() : DeadcellsCardModel(1, CardType.Attack, Card
         if (base.Owner.Creature.CurrentHp <= Mathf.FloorToInt(base.Owner.Creature.MaxHp / 2))
         {
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue + base.DynamicVars.ExtraDamage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash", null, null)
                 .Execute(choiceContext);
@@ -51,7 +51,7 @@ public sealed class FranticSword() : DeadcellsCardModel(1, CardType.Attack, Card
         else
         {
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash", null, null)
                 .Execute(choiceContext);

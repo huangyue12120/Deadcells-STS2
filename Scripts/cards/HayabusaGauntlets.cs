@@ -40,7 +40,7 @@ public sealed class HayabusaGauntlets() : DeadcellsCardModel(1, CardType.Attack,
     {
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
             .WithHitCount(base.DynamicVars.Repeat.IntValue)
-            .FromCard(this)
+            .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
@@ -48,7 +48,7 @@ public sealed class HayabusaGauntlets() : DeadcellsCardModel(1, CardType.Attack,
         {
             await DamageCmd.Attack(base.DynamicVars.ExtraDamage.BaseValue)
                 .WithHitCount(base.DynamicVars.Repeat.IntValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

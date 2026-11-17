@@ -39,7 +39,7 @@ public sealed class CorruptedArtifact : CustomRelicModel
     {
         await PlayerCmd.GainGold(base.DynamicVars.Gold.BaseValue, base.Owner);
     }
-    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
         if (target != base.Owner.Creature)
         {
@@ -49,7 +49,7 @@ public sealed class CorruptedArtifact : CustomRelicModel
         {
             return 2;
         }
-        return base.ModifyDamageMultiplicative(target, amount, props, dealer, cardSource);
+        return base.ModifyDamageMultiplicative(target, amount, props, dealer, cardSource, cardPlay);
     }
 
     public override Task AfterCombatVictory(CombatRoom room)

@@ -42,7 +42,7 @@ public sealed class Piano() : DeadcellsCardModel(1, CardType.Attack, CardRarity.
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
@@ -85,7 +85,7 @@ public sealed class PianoTwo() : DeadcellsCardModel(2, CardType.Attack, CardRari
         new DamageVar(16, ValueProp.Move),
     };
 
-    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
         if(cardSource == this && dealer == base.Owner.Creature && target != base.Owner.Creature && props.IsPoweredAttack_() && this.WasLastCardPlayedPiano)
         {
@@ -112,7 +112,7 @@ public sealed class PianoTwo() : DeadcellsCardModel(2, CardType.Attack, CardRari
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
@@ -170,7 +170,7 @@ public sealed class PianoThree() : DeadcellsCardModel(2, CardType.Attack, CardRa
         }
     }
 
-    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
         if (cardSource == this && dealer == base.Owner.Creature && target != base.Owner.Creature && props.IsPoweredAttack_() && this.WasLastCardPlayedPiano)
         {
@@ -184,7 +184,7 @@ public sealed class PianoThree() : DeadcellsCardModel(2, CardType.Attack, CardRa
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .TargetingAllOpponents(base.CombatState)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

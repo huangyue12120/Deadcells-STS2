@@ -48,7 +48,7 @@ public sealed class RamRune : CustomRelicModel
                     }
                     else if (enemy.Block > 0)
                     {
-                        await CreatureCmd.LoseBlock(enemy, enemy.Block);
+                        await CreatureCmd.LoseBlock(context, enemy, enemy.Block, base.Owner.Creature);
                         break;
                     }
                 }

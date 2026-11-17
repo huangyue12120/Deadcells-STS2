@@ -76,7 +76,7 @@ public sealed class BalancedBlade() : DeadcellsCardModel(1, CardType.Attack, Car
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await DamageCmd.Attack(base.DynamicVars["TotalDamage"].PreviewValue)
-            .FromCard(this)
+                .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

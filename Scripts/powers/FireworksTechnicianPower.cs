@@ -1,6 +1,7 @@
 using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using Deadcells.Scripts.character;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -32,12 +33,12 @@ public sealed class FireworksTechnicianPower : CustomPowerModel
     {
     };
 
-    public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
         if (props.IsPoweredAttack_() && cardSource != null && cardSource is DeadcellsCardModel deadcellsCard && deadcellsCard.DCCDTags.Contains(DeadcellsCardTag.Grenade) && dealer == base.Owner && cardSource.Owner.Creature == base.Owner)
         {
             return this.Amount;
         }
-        return base.ModifyDamageAdditive(target, amount, props, dealer, cardSource);
+        return base.ModifyDamageAdditive(target, amount, props, dealer, cardSource, cardPlay);
     }
 }

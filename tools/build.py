@@ -13,7 +13,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 
 ROOT = Path(__file__).resolve().parent.parent
 REFERENCE_FILES = ("sts2.dll", "0Harmony.dll", "Steamworks.NET.dll")
-GAME_VERSION = "v0.107.1"
+GAME_VERSION = "v0.111.1"
 
 
 def require_file(path):
