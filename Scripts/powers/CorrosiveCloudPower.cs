@@ -1,12 +1,9 @@
 using BaseLib.Abstracts;
-using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
@@ -28,19 +25,13 @@ public sealed class CorrosiveCloudPower : CustomPowerModel
         HoverTipFactory.FromPower<PoisonPower>()
     };
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
-    {
-        new IntVar("PoisonNumber", 0)
-    };
-
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if(power.Target != applier && power.Applier == applier && applier == base.Owner && power is BleedingPower && amount > 0)
+        if (power is BleedingPower && power.Owner.Side != base.Owner.Side && applier == base.Owner && amount >= 3)
         {
             this.Flash();
-            await Task.Run(() => base.DynamicVars["PoisonNumber"].UpgradeValueBy(Mathf.FloorToInt((float)amount / 3)));
-            await PowerCmd.Apply<PoisonPower>(choiceContext, power.Owner, base.DynamicVars["PoisonNumber"].IntValue * this.Amount, base.Owner, null);
-            await Task.Run(() => base.DynamicVars["PoisonNumber"].ResetToBase());
+            decimal poison = decimal.Floor(amount / 3) * this.Amount;
+            await PowerCmd.Apply<PoisonPower>(choiceContext, power.Owner, poison, base.Owner, null);
         }
     }
 }

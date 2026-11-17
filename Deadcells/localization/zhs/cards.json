@@ -13,7 +13,7 @@
   "DEADCELLS-BEGINNER_BOW.description": "造成{Damage:diff()}点伤害。\n为{Cards:diff()}张[gold]手牌[/gold]添加[gold]保留[/gold]。",
   "DEADCELLS-BEGINNER_BOW.selectionScreenPrompt": "选择{Cards:diff()}张牌添加[gold]保留[/gold]。",
   "DEADCELLS-BLEEDING_SPREAD.title": "血花四溅",
-  "DEADCELLS-BLEEDING_SPREAD.description": "[gold]流血[/gold]会扩散给其他敌人。\n当你给予敌人[gold]流血[/gold]时，额外给予{BleedingSpreadPower:diff()}层。",
+  "DEADCELLS-BLEEDING_SPREAD.description": "你的单体流血牌会将本次施加的[gold]流血[/gold]扩散给其他敌人。\n每当你给予敌人[gold]流血[/gold]时，额外给予{BleedingSpreadPower:diff()}层（扩散时也生效）。",
   "DEADCELLS-BLOOD_SWORD.title": "血之刃",
   "DEADCELLS-BLOOD_SWORD.description": "造成{Damage:diff()}点伤害。\n给予{BleedingPower:diff()}层[gold]流血[/gold]。",
   "DEADCELLS-BLOODTHIRSTY_SHIELD.title": "渴血盾",

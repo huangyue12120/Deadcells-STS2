@@ -33,16 +33,9 @@ public sealed class BleedingSpreadPower : CustomPowerModel
 
     public override decimal ModifyPowerAmountGivenAdditive(PowerModel power, Creature giver, decimal amount, Creature? target, CardModel? cardSource)
     {
-        if (giver != base.Owner || target == base.Owner || power is not BleedingPower || amount <= 0) return base.ModifyPowerAmountGivenAdditive(power, giver, amount, target, cardSource);
-        if (power is BleedingPower && amount > 0 && giver != null)
-        {
-            if (cardSource != null && cardSource is DeadcellsCardModel dc && dc.DCCDTags.Contains(DeadcellsCardTag.SingleBlood))
-            {
-                _isSpreading = true;
-            }
-            return amount + this.Amount;
-        }
-        return base.ModifyPowerAmountGivenAdditive(power, giver, amount, target, cardSource);
+        if (giver != base.Owner || target == null || target.Side == base.Owner.Side || power is not BleedingPower || amount <= 0)
+            return base.ModifyPowerAmountGivenAdditive(power, giver, amount, target, cardSource);
+        return this.Amount;
     }
 
     //0.103.2版本原内容
@@ -60,30 +53,20 @@ public sealed class BleedingSpreadPower : CustomPowerModel
     //    return base.ModifyPowerAmountGiven(power, giver, amount, target, cardSource);
     //}
 
-    private bool _isSpreading = false;
-
-    public override async Task AfterModifyingPowerAmountGiven(PowerModel power)
+    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (power is not BleedingPower) return;
-        if (power.Applier != base.Owner) return;
-        if (power.Owner == base.Owner) return;
+        if (power is not BleedingPower || applier != base.Owner || power.Owner.Side == base.Owner.Side ||
+            amount <= this.Amount || cardSource is not DeadcellsCardModel card ||
+            !card.DCCDTags.Contains(DeadcellsCardTag.SingleBlood))
+            return;
 
-        if (power is BleedingPower && _isSpreading)
+        this.Flash();
+        decimal bleeding = amount - this.Amount;
+        foreach (Creature enemy in base.CombatState.HittableEnemies.ToList())
         {
-            try
+            if (enemy != power.Owner)
             {
-                this.Flash();
-                foreach (Creature m in base.CombatState.HittableEnemies)
-                {
-                    if (m != power.Owner)
-                    {
-                        await PowerCmd.Apply<BleedingPower>(new ThrowingPlayerChoiceContext(), m, power.Amount, null, null);
-                    }
-                }
-            }
-            finally
-            {
-                this._isSpreading = false;
+                await PowerCmd.Apply<BleedingPower>(choiceContext, enemy, bleeding, base.Owner, null);
             }
         }
     }
