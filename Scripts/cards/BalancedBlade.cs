@@ -45,63 +45,55 @@ public sealed class BalancedBlade() : DeadcellsCardModel(1, CardType.Attack, Car
         }
     }
 
-    private int TotalDamage { get; set; }
-
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
         new DamageVar(9, ValueProp.Move),
         new ExtraDamageVar(3),
-        new IntVar("Increase", 1),
-
-        new CalculationBaseVar(0),
-        new CalculationExtraVar(1),
-        new CalculatedVar("TotalDamage").WithMultiplier((card, _)=>
-        {
-            if (card is BalancedBlade bb)
-            {
-                if (card.IsUpgraded)
-                {
-                    return 9 + (9 + bb._usenumber) * bb._usenumber / 2;
-                }
-                else
-                {
-                    return 9 + (5 + bb._usenumber) * bb._usenumber / 2;
-                }
-            }
-
-            return 0;
-        })
+        new IntVar("Increase", 1)
     };
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DamageCmd.Attack(base.DynamicVars["TotalDamage"].PreviewValue)
+        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
-        await Task.Run(() => UseNumber += 1);
+        UseNumber += 1;
+        UpdateDamage();
     }
 
     public override Task BeforeCombatStart()
     {
         UseNumber = 0;
-        TotalDamage = 0;
-        base.DynamicVars.Damage.ResetToBase();
+        UpdateDamage();
         return base.BeforeCombatStart();
     }
 
     public override Task AfterCombatVictory(CombatRoom room)
     {
         UseNumber = 0;
-        TotalDamage = 0;
-        base.DynamicVars.Damage.ResetToBase();
+        UpdateDamage();
         return base.AfterCombatVictory(room);
     }
 
     protected override void OnUpgrade()
     {
         base.DynamicVars.ExtraDamage.UpgradeValueBy(2);
+        UpdateDamage();
+    }
+
+    protected override void AfterDowngraded()
+    {
+        base.AfterDowngraded();
+        UpdateDamage();
+    }
+
+    private void UpdateDamage()
+    {
+        decimal plays = UseNumber;
+        base.DynamicVars.Damage.BaseValue = 9 + plays * base.DynamicVars.ExtraDamage.BaseValue
+            + plays * (plays - 1) / 2 * base.DynamicVars["Increase"].BaseValue;
     }
 
 }

@@ -8,7 +8,7 @@
   "DEADCELLS-BACKTRACK.title": "返回",
   "DEADCELLS-BACKTRACK.description": "将你的手牌洗入[gold]抽牌堆[/gold]，然后从你的[gold]弃牌堆[/gold]中抽等量的牌。",
   "DEADCELLS-BALANCED_BLADE.title": "均衡之刃",
-  "DEADCELLS-BALANCED_BLADE.description": "造成{Damage:diff()}点伤害。\n在本场战斗中每打出一次，这张牌的伤害增加{ExtraDamage:diff()}，且伤害增加量增加{Increase:diff()}点。{InCombat:\n（共造成{TotalDamage:diff()}点伤害）|}",
+  "DEADCELLS-BALANCED_BLADE.description": "造成{Damage:diff()}点伤害。\n在本场战斗中每打出一次，这张牌的伤害增加{ExtraDamage:diff()}，且伤害增加量增加{Increase:diff()}点。",
   "DEADCELLS-BEGINNER_BOW.title": "初学者的弓箭",
   "DEADCELLS-BEGINNER_BOW.description": "造成{Damage:diff()}点伤害。\n为{Cards:diff()}张[gold]手牌[/gold]添加[gold]保留[/gold]。",
   "DEADCELLS-BEGINNER_BOW.selectionScreenPrompt": "选择{Cards:diff()}张牌添加[gold]保留[/gold]。",

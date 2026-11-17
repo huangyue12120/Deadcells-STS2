@@ -102,7 +102,7 @@
   "DEADCELLS-A_PLAN.description": "Discard all [gold]Skill[/gold] cards in your hand, then draw that many [gold]Attack[/gold] cards.\nGain {Energy:energyIcons()}.",
   "DEADCELLS-ATTACK_DEFEND.description": "Each turn, whenever you play a [gold]Skill[/gold] and an [gold]Attack[/gold] consecutively, in either order, add {AttackDefendPower:diff()} [gold]{AttackDefendPower:plural:Throwing Knife|Throwing Knives}[/gold] into your [gold]Hand[/gold]. Each card counts toward only one pair.",
   "DEADCELLS-BACKTRACK.description": "Shuffle your hand into your [gold]Draw Pile[/gold], then draw that many cards from your [gold]Discard Pile[/gold].",
-  "DEADCELLS-BALANCED_BLADE.description": "Deal {Damage:diff()} damage.\nEach time this is played this combat, increase this card's damage by {ExtraDamage:diff()}, and increase that amount by {Increase:diff()}. {InCombat:\n(Has dealt {TotalDamage:diff()} damage)|}",
+  "DEADCELLS-BALANCED_BLADE.description": "Deal {Damage:diff()} damage.\nEach time this is played this combat, increase this card's damage by {ExtraDamage:diff()}, and increase that amount by {Increase:diff()}.",
   "DEADCELLS-BEGINNER_BOW.description": "Deal {Damage:diff()} damage.\nAdd [gold]Retain[/gold] to {Cards:diff()} {Cards:plural:card|cards} in your [gold]Hand[/gold].",
   "DEADCELLS-BEGINNER_BOW.selectionScreenPrompt": "Choose {Cards:diff()} {Cards:plural:card|cards} to add [gold]Retain[/gold].",
   "DEADCELLS-BLEEDING_SPREAD.description": "[gold]Bleeding[/gold] spreads to other enemies.\nWhenever you apply [gold]Bleeding[/gold], apply {BleedingSpreadPower:diff()} additional {BleedingSpreadPower:plural:stack|stacks}.",
