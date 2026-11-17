@@ -19,7 +19,20 @@ public abstract class DeadcellsCardModel(
     : CustomCardModel(canonicalEnergyCost, type, rarity, targetType, shouldShowInCardLibrary, autoAdd)
 {
     //卡图
-    public override string PortraitPath => $"res://Deadcells/images/cards/{Id.Entry.ToLowerInvariant()}.png";
+    public override string PortraitPath
+    {
+        get
+        {
+            string aiPortraitPath = $"res://Deadcells/images/cards/{Id.Entry.ToLowerInvariant()}.png";
+            if (!DeadcellsModConfig.UseOriginalCardArt)
+            {
+                return aiPortraitPath;
+            }
+
+            string originalPortraitPath = $"res://Deadcells/images/cards/original/{Id.Entry.ToLowerInvariant()}.png";
+            return ResourceLoader.Exists(originalPortraitPath) ? originalPortraitPath : aiPortraitPath;
+        }
+    }
 
     //卡背
 

@@ -12,4 +12,7 @@ public sealed class DeadcellsModConfig : SimpleModConfig
 {
     [ConfigSection("Cards")]
     public static bool MagnificentCardBg { get; set; } = true;
+
+    [ConfigSection("Cards")]
+    public static bool UseOriginalCardArt { get; set; } = true;
 }
