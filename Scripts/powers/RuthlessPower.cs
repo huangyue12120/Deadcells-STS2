@@ -37,7 +37,7 @@ public sealed class RuthlessPower : CustomPowerModel
 
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
-        if (power.Type == PowerType.Debuff && power.Owner != applier && power.Applier == applier && applier == base.Owner && amount > 0)//&& _triggerCountThisTurn < _maxTriggersPerTurn)
+        if (power.Type == PowerType.Debuff && power.Owner != base.Owner && applier == base.Owner && amount > 0)//&& _triggerCountThisTurn < _maxTriggersPerTurn)
         {
             _debuffCounter++;
 
@@ -52,7 +52,10 @@ public sealed class RuthlessPower : CustomPowerModel
 
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        _debuffCounter = 0;
+        if (player == base.Owner.Player)
+        {
+            _debuffCounter = 0;
+        }
         return base.AfterPlayerTurnStart(choiceContext, player);
     }
 }

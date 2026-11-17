@@ -37,6 +37,10 @@ public sealed class IronStaffPower : CustomPowerModel
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
+        if (player != base.Owner.Player)
+        {
+            return;
+        }
         this.Flash();
 
         for (int i = 0; i < this.Amount; i++)
@@ -51,7 +55,10 @@ public sealed class IronStaffPower : CustomPowerModel
 
     public override Task BeforeSideTurnEndVeryEarly(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        this.BlockNumber = base.Owner.Block;
+        if (side == CombatSide.Player && participants.Contains(base.Owner))
+        {
+            this.BlockNumber = base.Owner.Block;
+        }
         return base.BeforeSideTurnEndVeryEarly(choiceContext, side, participants);
     }
 }

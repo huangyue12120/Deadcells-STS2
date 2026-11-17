@@ -1,15 +1,13 @@
 using BaseLib.Utils;
 using Deadcells.Scripts.character;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Rooms;
+using MegaCrit.Sts2.Core.Saves.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Deadcells.Scripts.cards;
@@ -25,6 +23,7 @@ public sealed class FerrymanSLantern() : DeadcellsCardModel(0, CardType.Skill, C
 
     private int _ammunition;
 
+    [SavedProperty]
     public int Ammunition
     {
         get
@@ -35,6 +34,16 @@ public sealed class FerrymanSLantern() : DeadcellsCardModel(0, CardType.Skill, C
         {
             AssertMutable();
             _ammunition = value;
+            base.DynamicVars["Ammunition"].BaseValue = value;
+        }
+    }
+
+    internal void SetAmmunition(int value)
+    {
+        Ammunition = value;
+        if (DeckVersion is FerrymanSLantern deckVersion)
+        {
+            deckVersion.Ammunition = value;
         }
     }
 
@@ -54,15 +63,7 @@ public sealed class FerrymanSLantern() : DeadcellsCardModel(0, CardType.Skill, C
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
         new CardsVar(1),
-        new CalculationBaseVar(0),
-        new CalculationExtraVar(1),
-        new CalculatedVar("Ammunition").WithMultiplier((card, _) =>
-            {
-                // 安全转换，因为只有本卡实例才会调用此委托
-                if (card is FerrymanSLantern fs)
-                    return fs._ammunition;
-                return 0;
-            })
+        new IntVar("Ammunition", Ammunition)
     };
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -99,24 +100,15 @@ public sealed class FerrymanSLantern() : DeadcellsCardModel(0, CardType.Skill, C
         }
     }
 
-    public override Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
-    {
-        if (side == CombatSide.Player && combatState.RoundNumber <= 1)
-        {
-            Ammunition = 0;
-        }
-        return base.AfterSideTurnStart(side, participants, combatState);
-    }
-
-    public override Task AfterCombatVictory(CombatRoom room)
-    {
-        Ammunition = 0;
-        return base.AfterCombatVictory(room);
-    }
-
     protected override void OnUpgrade()
     {
 
+    }
+
+    protected override void AfterDowngraded()
+    {
+        base.AfterDowngraded();
+        base.DynamicVars["Ammunition"].BaseValue = Ammunition;
     }
 
 }
@@ -166,7 +158,7 @@ public sealed class FerrymanSLanternTwo : DeadcellsCardModel
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash", null, null)
                 .Execute(choiceContext);
-            this._parent.Ammunition += base.DynamicVars["AmmunitionIncrease"].IntValue;
+            this._parent.SetAmmunition(this._parent.Ammunition + base.DynamicVars["AmmunitionIncrease"].IntValue);
         }
     }
 
@@ -227,7 +219,7 @@ public sealed class FerrymanSLanternThree : DeadcellsCardModel
                     .WithHitFx("vfx/vfx_attack_slash", null, null)
                     .Execute(choiceContext);
             }
-            this._parent.Ammunition = 0;
+            this._parent.SetAmmunition(0);
         }
     }
 

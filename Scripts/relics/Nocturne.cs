@@ -57,20 +57,35 @@ public sealed class Nocturne : CustomRelicModel
 
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
+        if (cardPlay.Card.Owner != base.Owner)
+        {
+            return;
+        }
         if (cardPlay.Card.Type == CardType.Skill)
         {
             _cardsPlayedThisTurn++;
             if (_cardsPlayedThisTurn % base.DynamicVars.Cards.IntValue == 0)
             {
+                _cardsPlayedThisTurn = 0;
+                InvokeDisplayAmountChanged();
+                var enemies = base.Owner.Creature.CombatState.HittableEnemies.Where(enemy => !enemy.IsDead).ToList();
+                if (enemies.Count == 0)
+                {
+                    return;
+                }
                 Flash();
-                Creature randomEnemy = base.Owner.RunState.Rng.CombatTargets.NextItem(base.Owner.Creature.CombatState.HittableEnemies);
+                Creature randomEnemy = base.Owner.RunState.Rng.CombatTargets.NextItem(enemies);
                 await CreatureCmd.Damage(context, randomEnemy, base.DynamicVars.Damage, base.Owner.Creature);
                 if (randomEnemy.IsDead)
                 {
-                    randomEnemy = base.Owner.RunState.Rng.CombatTargets.NextItem(base.Owner.Creature.CombatState.HittableEnemies);
+                    enemies = base.Owner.Creature.CombatState.HittableEnemies.Where(enemy => !enemy.IsDead).ToList();
+                    if (enemies.Count == 0)
+                    {
+                        return;
+                    }
+                    randomEnemy = base.Owner.RunState.Rng.CombatTargets.NextItem(enemies);
                 }
                 await PowerCmd.Apply<NocturneAttackedPower>(context, randomEnemy, base.DynamicVars["NocturneAttackedPower"].BaseValue, null, null);
-                _cardsPlayedThisTurn = 0;
             }
 
         }

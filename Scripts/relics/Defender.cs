@@ -40,7 +40,7 @@ public sealed class Defender : CustomRelicModel
         }
         if (base.DynamicVars["Turn"].IntValue == 0)
         {
-            return 1 - (base.DynamicVars["DmgDeMu"].IntValue / 100);
+            return 1m - (base.DynamicVars["DmgDeMu"].IntValue / 100m);
         }
         return base.ModifyDamageMultiplicative(target, amount, props, dealer, cardSource, cardPlay);
     }
@@ -49,7 +49,7 @@ public sealed class Defender : CustomRelicModel
     {
         if (target != base.Owner.Creature)
         {
-            return amount;
+            return 0;
         }
         if (base.DynamicVars["Turn"].IntValue == 1)
         {
@@ -76,7 +76,16 @@ public sealed class Defender : CustomRelicModel
 
     public override Task AfterCombatVictory(CombatRoom room)
     {
-        base.DynamicVars["Turn"].ResetToBase();
+        base.DynamicVars["Turn"].BaseValue = 0;
         return base.AfterCombatVictory(room);
+    }
+
+    public override Task AfterRoomEntered(AbstractRoom room)
+    {
+        if (room is CombatRoom)
+        {
+            base.DynamicVars["Turn"].BaseValue = 0;
+        }
+        return base.AfterRoomEntered(room);
     }
 }

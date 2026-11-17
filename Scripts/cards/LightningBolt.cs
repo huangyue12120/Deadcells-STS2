@@ -19,6 +19,7 @@ public sealed class LightningBolt() : DeadcellsCardModel(1, CardType.Attack, Car
     protected override bool Purple => true;
 
     private int UsedTime {  get; set; }
+    private int _damageIncreases;
     protected override HashSet<CardTag> CanonicalTags => [];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => new CardKeyword[]
@@ -35,62 +36,45 @@ public sealed class LightningBolt() : DeadcellsCardModel(1, CardType.Attack, Car
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new CalculationBaseVar(7),
+        new DamageVar(7, ValueProp.Move),
         new ExtraDamageVar(7),
-        new CardsVar(4),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, target) =>
-        {
-            if (card is LightningBolt lb)
-            {
-                return lb.UsedTime;
-            }
-            return 1;
-        })
+        new CardsVar(4)
     };
 
-    private bool CanComeBack
+    private bool CanComeBack(CardPlay? currentPlay = null)
     {
-        get
+        if (base.CombatState == null || !CombatManager.Instance.IsInProgress)
         {
-            var thisTurnEntries = CombatManager.Instance.History.CardPlaysStarted
-                .Where(e => e.CardPlay.Card.Owner == base.Owner && e.HappenedThisTurn(base.CombatState))
-                .ToList();
-
-            var previousEntry = thisTurnEntries
-                .Where(e => e.CardPlay.Card != this)
-                .LastOrDefault();
-
-            int cardsPlayedThisTurnExcludingThis = thisTurnEntries.Count(e => e.CardPlay.Card != this);
-
-            if (previousEntry != null && previousEntry.CardPlay.Card == this)
-                return true;
-
-            if (cardsPlayedThisTurnExcludingThis == 0)
-                return true;
-
             return false;
         }
+        var previousEntry = CombatManager.Instance.History.CardPlaysStarted
+            .LastOrDefault(e => e.CardPlay.Player == base.Owner && e.HappenedThisTurn(base.CombatState)
+                && e.CardPlay != currentPlay);
+        return previousEntry == null || previousEntry.CardPlay.Card == this;
     }
 
-    protected override bool ShouldGlowGoldInternal => CanComeBack && UsedTime >= 1;
+    protected override bool ShouldGlowGoldInternal => CanComeBack() && UsedTime >= 1;
 
-    protected override bool ShouldGlowRedInternal => CanComeBack && UsedTime >= 3;
+    protected override bool ShouldGlowRedInternal => UsedTime >= base.DynamicVars.Cards.IntValue;
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
 
-        await DamageCmd.Attack(base.DynamicVars.CalculatedDamage)
+        bool canComeBack = CanComeBack(cardPlay);
+        await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
-        if (CanComeBack)
+        UsedTime += 1;
+        if (canComeBack)
         {
-            await Task.Run(() => UsedTime += 1);
+            _damageIncreases += 1;
+            UpdateDamage();
             await CardPileCmd.Add(this, PileType.Hand, CardPilePosition.Bottom);
         }
 
-        if (UsedTime >= base.DynamicVars.Cards.IntValue)
+        if (UsedTime > base.DynamicVars.Cards.IntValue)
         {
             await CreatureCmd.Damage(choiceContext, base.Owner.Creature, UsedTime, ValueProp.Unpowered, base.Owner.Creature);
         }
@@ -98,24 +82,55 @@ public sealed class LightningBolt() : DeadcellsCardModel(1, CardType.Attack, Car
 
     protected override void OnUpgrade()
     {
-        base.DynamicVars["CalculationBase"].UpgradeValueBy(3);
+        base.DynamicVars.Damage.UpgradeValueBy(3);
+    }
+
+    protected override void AfterDowngraded()
+    {
+        base.AfterDowngraded();
+        UpdateDamage();
+    }
+
+    private void UpdateDamage()
+    {
+        base.DynamicVars.Damage.BaseValue = (base.IsUpgraded ? 10 : 7)
+            + _damageIncreases * base.DynamicVars.ExtraDamage.BaseValue;
+    }
+
+    private void ResetTurn()
+    {
+        UsedTime = 0;
+        _damageIncreases = 0;
+        UpdateDamage();
+    }
+
+    public override Task BeforeCombatStart()
+    {
+        ResetTurn();
+        return base.BeforeCombatStart();
     }
 
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        UsedTime = 0;
+        if (player == base.Owner)
+        {
+            ResetTurn();
+        }
         return base.AfterPlayerTurnStart(choiceContext, player);
     }
 
     public override Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        UsedTime = 0;
+        if (side == CombatSide.Player)
+        {
+            ResetTurn();
+        }
         return base.AfterSideTurnEnd(choiceContext, side, participants);
     }
 
     public override Task AfterCombatVictory(CombatRoom room)
     {
-        UsedTime = 0;
+        ResetTurn();
         return base.AfterCombatVictory(room);
     }
 }

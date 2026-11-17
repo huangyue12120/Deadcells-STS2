@@ -68,24 +68,32 @@ public sealed class ProactivePower : CustomPowerModel
 
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
+        if (cardPlay.Card.Owner != base.Owner.Player)
+        {
+            return;
+        }
         if (cardPlay.Card.Type == CardType.Attack)
         {
             this.Flash();
             this.CanGive = true;
             await PowerCmd.Apply<ProactivePower>(context, base.Owner, (decimal)(1 - this.Amount), base.Owner, null);
-            await Task.Run(() => base.DynamicVars["ExtraDmg"].UpgradeValueBy(-base.DynamicVars["ExtraDmg"].BaseValue));
+            base.DynamicVars["ExtraDmg"].UpgradeValueBy(-base.DynamicVars["ExtraDmg"].BaseValue);
         }
 
         if (!this.CanGive && cardPlay.Card.Type == CardType.Skill)
         {
             this.Flash();
             await PowerCmd.Apply<ProactivePower>(context, base.Owner, 1, base.Owner, null);
-            await Task.Run(() => base.DynamicVars["ExtraDmg"].UpgradeValueBy(33));
+            base.DynamicVars["ExtraDmg"].UpgradeValueBy(33);
         }
     }
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
+        if (player != base.Owner.Player)
+        {
+            return;
+        }
         this.CanGive = false;
         if(base.DynamicVars["ExtraDmg"].IntValue > 0)
         {

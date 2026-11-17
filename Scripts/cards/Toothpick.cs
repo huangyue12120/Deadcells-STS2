@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Saves.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Deadcells.Scripts.cards;
@@ -21,6 +22,7 @@ public sealed class Toothpick() : DeadcellsCardModel(0, CardType.Skill, CardRari
 
     private int _ammunition;
 
+    [SavedProperty]
     public int Ammunition
     {
         get
@@ -31,6 +33,16 @@ public sealed class Toothpick() : DeadcellsCardModel(0, CardType.Skill, CardRari
         {
             AssertMutable();
             _ammunition = value;
+            base.DynamicVars["Ammunition"].BaseValue = value;
+        }
+    }
+
+    internal void SetAmmunition(int value)
+    {
+        Ammunition = value;
+        if (DeckVersion is Toothpick deckVersion)
+        {
+            deckVersion.Ammunition = value;
         }
     }
 
@@ -51,15 +63,7 @@ public sealed class Toothpick() : DeadcellsCardModel(0, CardType.Skill, CardRari
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
         new CardsVar(1),
-        new CalculationBaseVar(0),
-        new CalculationExtraVar(1),
-        new CalculatedVar("Ammunition").WithMultiplier((card, _) =>
-            {
-                // 安全转换，因为只有本卡实例才会调用此委托
-                if (card is Toothpick tp)
-                    return tp._ammunition;
-                return 0;
-            })
+        new IntVar("Ammunition", Ammunition)
     };
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -104,6 +108,12 @@ public sealed class Toothpick() : DeadcellsCardModel(0, CardType.Skill, CardRari
     protected override void OnUpgrade()
     {
 
+    }
+
+    protected override void AfterDowngraded()
+    {
+        base.AfterDowngraded();
+        base.DynamicVars["Ammunition"].BaseValue = Ammunition;
     }
 
 }
@@ -191,7 +201,7 @@ public sealed class ToothpickThree() : DeadcellsCardModel(2, CardType.Attack, Ca
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash", null, null)
                 .Execute(choiceContext);
-            this._parent.Ammunition -= base.DynamicVars["AmmunitionDecrease"].IntValue;
+            this._parent.SetAmmunition(this._parent.Ammunition - base.DynamicVars["AmmunitionDecrease"].IntValue);
         }
     }
 
@@ -239,7 +249,7 @@ public sealed class ToothpickFour() : DeadcellsCardModel(0, CardType.Skill, Card
         await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
         if (this._parent != null && this._parent.Ammunition < 1)
         {
-            this._parent.Ammunition += base.DynamicVars["AmmunitionIncrease"].IntValue;
+            this._parent.SetAmmunition(this._parent.Ammunition + base.DynamicVars["AmmunitionIncrease"].IntValue);
         }
     }
 

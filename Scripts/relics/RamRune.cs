@@ -19,6 +19,7 @@ namespace Deadcells.Scripts.relics;
 public sealed class RamRune : CustomRelicModel
 {
     private int atkAmt = 0;
+    private bool _triggeredThisTurn;
     public override RelicRarity Rarity => RelicRarity.Rare;
 
     // 小图标
@@ -34,22 +35,24 @@ public sealed class RamRune : CustomRelicModel
 
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
-        if (cardPlay.Card.Type == CardType.Attack)
+        if (cardPlay.Card.Owner == base.Owner && cardPlay.Card.Type == CardType.Attack && !_triggeredThisTurn)
         {
             this.atkAmt++;
             if (this.atkAmt >= base.DynamicVars.Cards.IntValue)
             {
-                foreach (Creature enemy in base.Owner.Creature.CombatState.HittableEnemies)
+                _triggeredThisTurn = true;
+                var enemies = base.Owner.Creature.CombatState.HittableEnemies.ToList();
+                Creature? minion = enemies.FirstOrDefault(enemy => enemy.HasPower<MinionPower>());
+                if (minion != null)
                 {
-                    if (enemy.HasPower<MinionPower>())
-                    {
-                        await Task.Run(() => CreatureCmd.Kill(enemy));
-                        break;
-                    }
-                    else if (enemy.Block > 0)
+                    await CreatureCmd.Kill(minion);
+                }
+                else
+                {
+                    Creature? enemy = enemies.FirstOrDefault(enemy => enemy.Block > 0);
+                    if (enemy != null)
                     {
                         await CreatureCmd.LoseBlock(context, enemy, enemy.Block, base.Owner.Creature);
-                        break;
                     }
                 }
             }
@@ -58,7 +61,11 @@ public sealed class RamRune : CustomRelicModel
 
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        this.atkAmt = 0;
+        if (player == base.Owner)
+        {
+            this.atkAmt = 0;
+            _triggeredThisTurn = false;
+        }
         return base.AfterPlayerTurnStart(choiceContext, player);
     }
 
@@ -67,6 +74,7 @@ public sealed class RamRune : CustomRelicModel
         if (side == CombatSide.Player)
         {
             this.atkAmt = 0;
+            _triggeredThisTurn = false;
         }
         return base.AfterSideTurnEnd(choiceContext, side, participants);
     }
@@ -74,6 +82,7 @@ public sealed class RamRune : CustomRelicModel
     public override Task AfterCombatVictory(CombatRoom room)
     {
         this.atkAmt = 0;
+        _triggeredThisTurn = false;
         return base.AfterCombatVictory(room);
     }
 }
